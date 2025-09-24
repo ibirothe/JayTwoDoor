@@ -1,9 +1,3 @@
-Perfect — thanks for sharing your `requirements.txt`. That makes it very clear what the backend stack actually is. I’ll update the README so it only mentions technologies you’re really using, nothing fabricated.
-
-Here’s a cleaned-up version:
-
----
-
 # FastAPI + React + MongoDB Todo App
 
 A full-stack Todo application with authentication and security measures, built with:
