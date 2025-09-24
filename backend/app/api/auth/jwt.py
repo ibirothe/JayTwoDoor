@@ -12,12 +12,22 @@ from app.api.deps.user_deps import get_current_user
 from app.core.config import settings
 from jose import jwt
 
-
 auth_router = APIRouter()
-
 
 @auth_router.post("/login", summary="Access and Refresh token created", response_model=TokenSchema)
 async def login(login: OAuth2PasswordRequestFormStrict = Depends()) -> Any:
+    """
+    Authenticate user and return access and refresh tokens.
+
+    Args:
+        login (OAuth2PasswordRequestFormStrict): User login form with email and password.
+
+    Raises:
+        HTTPException: If authentication fails.
+
+    Returns:
+        dict: Access and refresh JWT tokens.
+    """
     user = await UserService.authenticate(email=login.username, password=login.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect email or password")
@@ -27,14 +37,33 @@ async def login(login: OAuth2PasswordRequestFormStrict = Depends()) -> Any:
         "refresh_token": create_refresh_token(user.user_id)
     }
 
-
 @auth_router.post("/test-token", summary="Testing if Token is valid", response_model=UserOut)
 async def test_token(user: User = Depends(get_current_user)):
-    return user
+    """
+    Validate the current JWT token and return user details.
 
+    Args:
+        user (User): Current authenticated user via token.
+
+    Returns:
+        UserOut: User details.
+    """
+    return user
 
 @auth_router.post('/refresh', summary="Refresh token", response_model=TokenSchema)
 async def refresh_token(refresh_token: str = Body(...)):
+    """
+    Generate new access and refresh tokens using a valid refresh token.
+
+    Args:
+        refresh_token (str): Refresh JWT token.
+
+    Raises:
+        HTTPException: If token is invalid or user not found.
+
+    Returns:
+        dict: New access and refresh JWT tokens.
+    """
     try:
         payload = jwt.decode(
             refresh_token, settings.JWT_REFRESH_SECRET_KEY, algorithms=[settings.ALGORITHM]

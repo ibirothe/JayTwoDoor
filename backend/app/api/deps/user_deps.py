@@ -15,6 +15,18 @@ reuseable_oauth = OAuth2PasswordBearer(
 
 
 async def get_current_user(token: str = Depends(reuseable_oauth)) -> User:
+    """
+    Retrieve the current user based on the provided JWT token.
+
+    Args:
+        token (str): JWT token from request header.
+
+    Raises:
+        HTTPException: If token is invalid, expired, or user not found.
+
+    Returns:
+        User: Authenticated user instance.
+    """
     try:
         payload = jwt.decode(
             token, settings.JWT_SECRET_KEY, algorithms=[settings.ALGORITHM]

@@ -3,12 +3,18 @@ from uuid import UUID
 from pydantic import BaseModel, EmailStr, Field
 
 class UserAuth(BaseModel):
-    email: EmailStr = Field(..., description="user email")
-    username: str = Field(..., min_length=8, max_length=32, description="user username")
-    password: str = Field(..., min_length=8, max_length=32, description="user password")
+    """
+    Schema for user registration and authentication input.
+    """
+    email: EmailStr = Field(..., description="User email")
+    username: str = Field(..., min_length=8, max_length=32, description="User username")
+    password: str = Field(..., min_length=8, max_length=32, description="User password")
 
 
 class UserOut(BaseModel):
+    """
+    Schema for returning user details.
+    """
     user_id = UUID
     username: str
     email: EmailStr

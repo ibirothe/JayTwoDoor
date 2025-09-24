@@ -15,10 +15,9 @@ class Settings(BaseSettings):
         "http://localhost:3000"
     ]
     PROJECT_NAME: str = "TODO by Pascal Rothe"
-    
-    # Database
     MONGO_CONNECTION_STRING: str = config("MONGO_CONNECTION_STRING", cast=str)
     
+
     class Config:
         case_sensitive = True
         

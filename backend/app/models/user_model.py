@@ -1,10 +1,14 @@
 from typing import Optional
 from uuid import UUID, uuid4
-from beanie import Document, Indexed
+from beanie import Document
 from pydantic import Field, EmailStr
 import datetime
 
 class User(Document):
+    """
+    User document model for MongoDB with Beanie.
+    Stores authentication and profile details.
+    """
     user_id: UUID = Field(default_factory=uuid4)
     username: str = Field(..., unique=True)
     email: EmailStr = Field(..., unique=True)
@@ -29,11 +33,20 @@ class User(Document):
     
     @property
     def create(self) -> datetime:
+        """
+        Get user creation datetime from MongoDB ObjectId.
+        """
         return self.id.generation_time
     
     @classmethod
-    async def by_email(self, email: str) -> "User":
-        return await self.find_one(self.email)
+    async def by_email(cls, email: str) -> "User":
+        """
+        Retrieve a user by email.
+        """
+        return await cls.find_one(cls.email)
     
     class Collection:
+        """
+        MongoDB collection configuration.
+        """
         name = "users"

@@ -4,10 +4,19 @@ from passlib.context import CryptContext
 from app.core.config import settings
 from jose import jwt
 
-
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def create_access_token(subject: Union[str, Any], expires: int = None) -> str:
+    """
+    Create a JWT access token with an optional expiration time.
+
+    Args:
+        subject (str | Any): Identifier for the token subject (usually user ID).
+        expires (int, optional): Expiration time in minutes. Defaults to settings value.
+
+    Returns:
+        str: Encoded JWT access token.
+    """
     if expires:
         expire_time = datetime.now(timezone.utc) + timedelta(minutes=expires)
     else:
@@ -19,6 +28,16 @@ def create_access_token(subject: Union[str, Any], expires: int = None) -> str:
 
 
 def create_refresh_token(subject: Union[str, Any], expires: int = None) -> str:
+    """
+    Create a JWT refresh token with an optional expiration time.
+
+    Args:
+        subject (str | Any): Identifier for the token subject (usually user ID).
+        expires (int, optional): Expiration time in minutes. Defaults to settings value.
+
+    Returns:
+        str: Encoded JWT refresh token.
+    """
     if expires:
         expire_time = datetime.now(timezone.utc) + timedelta(minutes=expires)
     else:
@@ -30,7 +49,26 @@ def create_refresh_token(subject: Union[str, Any], expires: int = None) -> str:
 
 
 def get_password(password: str) -> str:
+    """
+    Hash a plaintext password using bcrypt.
+
+    Args:
+        password (str): Plaintext password.
+
+    Returns:
+        str: Hashed password.
+    """
     return password_context.hash(password)
 
 def verify_password(password: str, hashed_password: str) -> bool:
+    """
+    Verify a plaintext password against a hashed password.
+
+    Args:
+        password (str): Plaintext password.
+        hashed_password (str): Hashed password.
+
+    Returns:
+        bool: True if password matches, else False.
+    """
     return password_context.verify(password, hashed_password)
