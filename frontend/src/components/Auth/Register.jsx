@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { ThemeToggler } from "../Theme/ThemeToggler";
 
-export const Login = () => {
+export const Register = () => {
   const {
     handleSubmit,
     register,
@@ -50,9 +50,30 @@ export const Login = () => {
             <ThemeToggler showLabel={true} />
         </Flex>
 
-        <Heading mb={2}>Login</Heading>
+        <Heading mb={2}>Create Account</Heading>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+          {/* Username field */}
+          <FormControl isInvalid={errors.username}>
+            <Input
+              placeholder="Username"
+              background={useColorModeValue("gray.200", "gray.800")}
+              type="text"
+              size="sm"
+              fontSize={"xs"}
+              mt={6}
+              textAlign="center"
+              {...register("username", {
+                required: "Required field",
+                minLength: { value: 5, message: "Username must be at least 5 characters long"},
+                maxLength: { value: 30, message: "Username must be at most 30 characters long"}
+            })}
+            />
+            <FormErrorMessage>
+              {errors.username && errors.username.message}
+            </FormErrorMessage>
+          </FormControl>
+          
           {/* Email field */}
           <FormControl isInvalid={errors.email}>
             <Input
@@ -80,7 +101,11 @@ export const Login = () => {
               fontSize={"xs"}
               mt={6}
               textAlign="center"
-              {...register("password", { required: "Required field" })}
+              {...register("password", {
+                required: "Required field",
+                minLength: { value: 8, message: "Password must be at least 8 characters long"},
+                maxLength: { value: 32, message: "Password must be at most 32 characters long"}
+            })}
             />
             <FormErrorMessage>
               {errors.password && errors.password.message}
@@ -97,17 +122,17 @@ export const Login = () => {
             mt={6}
             type="submit"
           >
-            Login
+            Create Account
           </Button>
 
           <Button
-            onClick={() => navigate("/register", { replace: true })}
+            onClick={() => navigate("/login", { replace: true })}
             width="100%"
             colorScheme="gray"
             variant="outline"
             mt={6}
           >
-            Create account
+            Login
           </Button>
         </form>
       </Flex>
