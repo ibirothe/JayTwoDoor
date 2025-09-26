@@ -8,8 +8,10 @@ import {
   useColorModeValue,
   FormErrorMessage,
   Button,
+  useToast
 } from "@chakra-ui/react";
 import { ThemeToggler } from "../Theme/ThemeToggler";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Login = () => {
   const {
@@ -19,9 +21,20 @@ export const Login = () => {
   } = useForm();
 
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const toast = useToast();
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    try {
+      await login(values.email, values.password)
+    } catch (error) {
+      toast({
+        title:"Invalid email or password",
+        status:"error",
+        isClosable:true,
+        duration:2000
+      })
+    }
   };
 
   return (
