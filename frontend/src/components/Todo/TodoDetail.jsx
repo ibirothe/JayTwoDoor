@@ -8,9 +8,11 @@ import {
   useColorModeValue,
   useToast,
   IconButton,
-  CloseButton
+  CloseButton,
+  Code,
+  Icon
 } from "@chakra-ui/react";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineCreate, MdOutlineUpdate } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
@@ -105,9 +107,41 @@ export const TodoDetail = () => {
         />
       </Flex>
 
+
+
+      {/* Create and Update time */}
+      <Box display="flex" alignItems="center" gap={1}>
+        <Icon as={MdOutlineCreate} boxSize={4} />
+        <Code variant="outline" fontSize="sm">
+          {new Date(todo.created_at).toLocaleString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Code>
+      </Box>
+
+      {todo.created_at !== todo.updated_at && (
+        <Box display="flex" alignItems="center" gap={1}>
+          <Icon as={MdOutlineUpdate} boxSize={4} color="purple.400" />
+          <Code variant="outline" fontSize="sm" colorScheme="purple">
+            {new Date(todo.updated_at).toLocaleString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </Code>
+        </Box>
+      )}
+
+
       {/* Todo description */}
       <Box bgGradient={descriptionBg} mt={3} p={3} rounded="lg">
-        <Text>{todo.description}</Text>
+        <Text height={"450px"} whiteSpace="pre-line">{todo.description}</Text>
       </Box>
 
       {/* Edit and Delete buttons */}

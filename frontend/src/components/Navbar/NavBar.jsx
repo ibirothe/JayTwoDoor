@@ -5,10 +5,12 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  Icon
 } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { ThemeToggler } from "../Theme/ThemeToggler";
+import { MdFace3 } from 'react-icons/md';
 
 export const NavBar = () => {
   const { logout } = useAuth();
@@ -26,6 +28,7 @@ export const NavBar = () => {
         )}
         >
         <Flex align="center" gap={0}>
+            <Icon as={MdFace3} color="white" boxSize={6} mr={1} />
             <Text as="h2" fontSize={24} color={useColorModeValue("#3e3234","#cb99ab")} fontWeight="bold">
             JAY
             </Text>

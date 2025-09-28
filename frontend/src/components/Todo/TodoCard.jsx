@@ -1,5 +1,6 @@
-import { Badge, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Badge, Flex, Text, useColorModeValue, Icon, Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { MdFace3 } from 'react-icons/md';
 
 export const TodoCard = ({ todo }) => {
   const navigate = useNavigate();
@@ -21,10 +22,13 @@ export const TodoCard = ({ todo }) => {
       }}
       onClick={() => navigate(`/${todo.todo_id}`, { replace: true })}
     >
-      <Text>{todo.title}</Text>
-      <Badge colorScheme={todo.status ? "green" : "purple"}>
-        {todo.status ? "Complete" : "Pending"}
-      </Badge>
+      <Text fontWeight={"bold"}>{todo.title}</Text>
+      <Box display="flex" alignItems="center">
+        <Badge colorScheme={todo.status ? "green" : "purple"}>
+          {todo.status ? "Complete" : "Pending"}
+        </Badge>
+        <Icon as={MdFace3} boxSize={6} ml={2} />
+      </Box>
     </Flex>
   );
 };
