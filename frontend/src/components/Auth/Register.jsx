@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Flex,
   FormControl,
@@ -136,7 +136,7 @@ export const Register = () => {
             isLoading={isSubmitting}
             loadingText="Logging in..."
             width="100%"
-            colorScheme="blue"
+            colorScheme="purple"
             variant="outline"
             mt={6}
             type="submit"

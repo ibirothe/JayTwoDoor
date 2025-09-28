@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
         "http://localhost:3000"
     ]
-    PROJECT_NAME: str = "TODO by Pascal Rothe"
+    PROJECT_NAME: str = "JAY 2Door"
     MONGO_CONNECTION_STRING: str = config("MONGO_CONNECTION_STRING", cast=str)
     
 

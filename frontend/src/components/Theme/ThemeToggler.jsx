@@ -9,7 +9,7 @@ export const ThemeToggler = ({ showLabel = false, ...rest }) => {
         id="theme-toggler"
         size="sm"
         isChecked={colorMode === "dark"}
-        colorScheme="blue"
+        colorScheme="purple"
         onChange={toggleColorMode}
         {...rest}
       />

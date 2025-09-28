@@ -5,7 +5,9 @@ import { AuthContext, AuthConsumer, AuthProvider } from "./context/JWTAuthContex
 import { Flex, Spinner } from "@chakra-ui/react";
 import { PublicRoute } from "./components/Auth/PublicRoute";
 import { Authenticated } from "./components/Auth/Authenticated";
+import { NavBar } from "./components/Navbar/NavBar";
 import { TodoList } from "./components/Todo/TodoList";
+import { TodoDetail } from "./components/Todo/TodoDetail";
 
 
 function App() {
@@ -30,17 +32,48 @@ function App() {
           </Flex>
         ): (
           <Routes>
-            <Route path="/login" element={ <PublicRoute><Login /></PublicRoute> } />
-            <Route path="/register" element={ <PublicRoute><Register /></PublicRoute> } />
-            <Route path="/" element={ <Authenticated><TodoList/></Authenticated> } />
-            <Route path="*" element={ <Navigate to="/" />} />
-          </Routes>
-        )}
-      </AuthConsumer>
-    </Router>
-    </AuthProvider>
+                  <Route
+                    path="/login"
+                    element={
+                      <PublicRoute>
+                        <Login />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route
+                    path="/register"
+                    element={
+                      <PublicRoute>
+                        <Register />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route path="/" element={<NavBar />}>
+                    <Route
+                      path="/"
+                      element={
+                        <Authenticated>
+                          <TodoList />
+                        </Authenticated>
+                      }
+                    />
+                  <Route
+                      path="/:todoId"
+                      element={
+                        <Authenticated>
+                          <TodoDetail />
+                        </Authenticated>
+                      }
+                    />
+                  </Route>
+                  <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+              )
+            }
+          </AuthConsumer>
+        </Router>
+      </AuthProvider>
     </>
-    
   );
 }
 

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Flex,
   FormControl,
@@ -8,7 +8,8 @@ import {
   useColorModeValue,
   FormErrorMessage,
   Button,
-  useToast
+  useToast,
+  Text
 } from "@chakra-ui/react";
 import { ThemeToggler } from "../Theme/ThemeToggler";
 import { useAuth } from "../../hooks/useAuth";
@@ -63,7 +64,8 @@ export const Login = () => {
             <ThemeToggler showLabel={true} />
         </Flex>
 
-        <Heading mb={2}>Login</Heading>
+        <Heading mb={0}>LOGIN</Heading>
+        <Text mb={2}>J A Y 2 D o o r</Text>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           {/* Email field */}
