@@ -2,6 +2,7 @@ from typing import Optional
 from uuid import UUID, uuid4
 from beanie import Document
 from pydantic import Field, EmailStr
+from pymongo import IndexModel
 import datetime
 
 class User(Document):
@@ -16,6 +17,12 @@ class User(Document):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     disabled: Optional[bool] = None
+
+    class Settings:
+        indexes = [
+            IndexModel("email", unique=True),  # enforces unique emails
+            IndexModel("username")  # optional, for faster queries
+        ]
 
     def __repr__(self):
         return f"User: {self.email}"

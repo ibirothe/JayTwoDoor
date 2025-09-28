@@ -1,5 +1,6 @@
 from typing import Optional
 from uuid import UUID
+from fastapi import HTTPException, status
 from app.schemas.user_schema import UserAuth
 from app.models.user_model import User
 from app.core.security import get_password, verify_password
@@ -21,6 +22,19 @@ class UserService:
         Returns:
             User: The created user instance.
         """
+        if await User.find_one(User.email == user.email):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email already registered"
+        )
+    
+        # 2️⃣ Check if username already exists
+        if await User.find_one(User.username == user.username):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Username already taken"
+            )
+        
         user_in = User(
             username=user.username,
             email=user.email,

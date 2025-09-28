@@ -8,8 +8,10 @@ import {
   useColorModeValue,
   FormErrorMessage,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { ThemeToggler } from "../Theme/ThemeToggler";
+import axiosInstance from "../../services/axios";
 
 export const Register = () => {
   const {
@@ -19,9 +21,26 @@ export const Register = () => {
   } = useForm();
 
   const navigate = useNavigate();
+  const toast = useToast();
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    try {
+      await axiosInstance.post("/users/create", values)
+      toast({
+        title: "Account created successfully",
+        status: "success",
+        isClosable: true,
+        duration: 2000
+      });
+      navigate("/login", {replace: true});
+    } catch (error) {
+      toast({
+        title: `${error.response.data.detail}`,
+        status: "error",
+        isClosable: true,
+        duration: 2000
+      });
+    }
   };
 
   return (
