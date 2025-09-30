@@ -69,7 +69,7 @@ export const AddUpdateTodoModal = ({
 
   return (
     <Box {...rest}>
-      <Button w="100%" colorScheme="purple" onClick={onOpen}>
+      <Button w="100%" colorScheme="purple" onClick={onOpen} rounded="full">
         {editable ? "UPDATE 2Door" : "ADD 2Door"}
       </Button>
       <Modal

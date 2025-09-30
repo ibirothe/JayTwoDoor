@@ -1,18 +1,21 @@
 import { Badge, Flex, Text, useColorModeValue, Icon, Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { MdFace3 } from 'react-icons/md';
+import cardBgLight from '../../assets/card_bg_light.png';
+import cardBgDark from '../../assets/card_bg_dark.png';
 
 export const TodoCard = ({ todo }) => {
   const navigate = useNavigate();
   return (
     <Flex
-      bg={useColorModeValue(
-          "linear-gradient(90deg, #d1a9adff, #cb99abff)",
-          "linear-gradient(90deg, #3e3234ff, #36292eff)")}
+      backgroundImage={useColorModeValue(
+                `url(${cardBgLight})`,
+                `url(${cardBgDark})`
+              )}
       minHeight="3rem"
       my={3}
       p={3}
-      rounded="lg"
+      rounded="full"
       alignItems="center"
       justifyContent="space-between"
       _hover={{
@@ -24,7 +27,7 @@ export const TodoCard = ({ todo }) => {
     >
       <Text fontWeight={"bold"}>{todo.title}</Text>
       <Box display="flex" alignItems="center">
-        <Badge colorScheme={todo.status ? "green" : "purple"}>
+        <Badge rounded="full" colorScheme={todo.status ? "green" : "purple"}>
           {todo.status ? "Complete" : "Pending"}
         </Badge>
         <Icon as={MdFace3} boxSize={6} ml={2} />

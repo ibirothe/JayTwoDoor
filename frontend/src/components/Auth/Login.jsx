@@ -13,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { ThemeToggler } from "../Theme/ThemeToggler";
 import { useAuth } from "../../hooks/useAuth";
+import loginBgLight from '../../assets/flex_bg_light.png';
+import loginBgDark from '../../assets/flex_bg_dark.png';
 
 export const Login = () => {
   const {
@@ -51,10 +53,13 @@ export const Login = () => {
       <Flex
         direction="column"
         align="center"
-        background={useColorModeValue(
-          "linear-gradient(90deg, #d1a9adff, #cb99abff)",
-          "linear-gradient(90deg, #3e3234ff, #36292eff)"
+        backgroundImage={useColorModeValue(
+          `url(${loginBgLight})`,
+          `url(${loginBgDark})`
         )}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
         p={10}
         rounded={12}
         width="sm"
@@ -78,6 +83,7 @@ export const Login = () => {
               fontSize={"xs"}
               mt={6}
               textAlign="center"
+              rounded="full"
               {...register("email", { required: "Required field" })}
             />
             <FormErrorMessage>
@@ -95,6 +101,7 @@ export const Login = () => {
               fontSize={"xs"}
               mt={6}
               textAlign="center"
+              rounded="full"
               {...register("password", { required: "Required field" })}
             />
             <FormErrorMessage>
@@ -107,10 +114,12 @@ export const Login = () => {
             isLoading={isSubmitting}
             loadingText="Logging in..."
             width="100%"
-            colorScheme="blue"
+            color={useColorModeValue("#1e191aff", "#f4e3d8ff")}
+            textColor={"#f4e3d8ff"}
             variant="outline"
             mt={6}
             type="submit"
+            rounded="full"
           >
             Login
           </Button>
@@ -118,11 +127,13 @@ export const Login = () => {
           <Button
             onClick={() => navigate("/register", { replace: true })}
             width="100%"
-            colorScheme="gray"
+            color={useColorModeValue("#1e191aff", "#f4e3d8ff")}
+            textColor={"#f4e3d8ff"}
             variant="outline"
             mt={6}
+            rounded="full"
           >
-            Create account
+            Create Account
           </Button>
         </form>
       </Flex>

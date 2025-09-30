@@ -10,13 +10,15 @@ import {
   IconButton,
   CloseButton,
   Code,
-  Icon
+  Icon,
 } from "@chakra-ui/react";
 import { MdDeleteOutline, MdOutlineCreate, MdOutlineUpdate } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
 import { AddUpdateTodoModal } from "./AddUpdateTodoModal";
+import detailBgLight from '../../assets/flex_bg_light.png';
+import detailBgDark from '../../assets/flex_bg_dark.png';
 
 export const TodoDetail = () => {
   const [todo, setTodo] = useState({});
@@ -26,9 +28,9 @@ export const TodoDetail = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const background = useColorModeValue(
-    "linear-gradient(90deg, #f4e3d8ff, #f6d2d6ff)",
-    "linear-gradient(90deg, #1e191aff, #251a28ff)"
+  const imageBg = useColorModeValue(
+    `url(${detailBgLight})`,
+    `url(${detailBgDark})`
   );
 
   const descriptionBg = useColorModeValue(
@@ -93,7 +95,16 @@ export const TodoDetail = () => {
   }
 
   return (
-    <Container bg={background} minHeight="7rem" my={3} p={3} rounded="lg">
+    <Container
+      bg={`linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), ${imageBg}`}
+      backgroundSize="cover"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      minHeight="7rem"
+      my={3}
+      p={3}
+      rounded="lg"
+    >
       {/* Title and Back button */}
       <Flex justify="space-between" align="center">
         <Text fontSize={22} fontWeight="bold">
@@ -107,10 +118,8 @@ export const TodoDetail = () => {
         />
       </Flex>
 
-
-
       {/* Create and Update time */}
-      <Box display="flex" alignItems="center" gap={1}>
+      <Box display="flex" alignItems="center" gap={1} mt={2}>
         <Icon as={MdOutlineCreate} boxSize={4} />
         <Code variant="outline" fontSize="sm">
           {new Date(todo.created_at).toLocaleString("en-US", {
@@ -137,7 +146,6 @@ export const TodoDetail = () => {
           </Code>
         </Box>
       )}
-
 
       {/* Todo description */}
       <Box bgGradient={descriptionBg} mt={3} p={3} rounded="lg">
