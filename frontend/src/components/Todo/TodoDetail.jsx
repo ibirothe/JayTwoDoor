@@ -34,9 +34,9 @@ export const TodoDetail = () => {
   );
 
   const descriptionBg = useColorModeValue(
-    "linear-gradient(90deg, #d1a9adff, #cb99abff)",
-    "linear-gradient(90deg, #3e3234ff, #36292eff)"
-  );
+        "linear-gradient(90deg, #f6d8baff, #fae1e1ff)",
+        "linear-gradient(90deg, #1e191aff, #251a28ff)"
+      );
 
   const fetchTodo = () => {
     setLoading(true);
@@ -120,8 +120,8 @@ export const TodoDetail = () => {
 
       {/* Create and Update time */}
       <Box display="flex" alignItems="center" gap={1} mt={2}>
-        <Icon as={MdOutlineCreate} boxSize={4} />
-        <Code variant="outline" fontSize="sm">
+        <Icon as={MdOutlineCreate} boxSize={4} color="grey.200"/>
+        <Code variant="outline" fontSize="sm" color="grey.200">
           {new Date(todo.created_at).toLocaleString("en-US", {
             year: "numeric",
             month: "long",
@@ -134,8 +134,8 @@ export const TodoDetail = () => {
 
       {todo.created_at !== todo.updated_at && (
         <Box display="flex" alignItems="center" gap={1}>
-          <Icon as={MdOutlineUpdate} boxSize={4} color="purple.400" />
-          <Code variant="outline" fontSize="sm" colorScheme="purple">
+          <Icon as={MdOutlineUpdate} boxSize={4} color="red.200" />
+          <Code variant="outline" fontSize="sm" color="red.200">
             {new Date(todo.updated_at).toLocaleString("en-US", {
               year: "numeric",
               month: "long",
@@ -148,7 +148,7 @@ export const TodoDetail = () => {
       )}
 
       {/* Todo description */}
-      <Box bgGradient={descriptionBg} mt={3} p={3} rounded="lg">
+      <Box bg={descriptionBg} mt={3} p={3} rounded="lg">
         <Text height={"450px"} whiteSpace="pre-line">{todo.description}</Text>
       </Box>
 
@@ -171,9 +171,9 @@ export const TodoDetail = () => {
             isLoading={loading}
             aria-label="Delete Todo"
             icon={<MdDeleteOutline />}
-            colorScheme="red"
+            color="red.200"
             width="100%"
-            variant="outline"
+            variant="solid"
             onClick={deleteTodo}
             borderRadius="md"
           />

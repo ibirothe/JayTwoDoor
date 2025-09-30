@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { ThemeToggler } from "../Theme/ThemeToggler";
 import axiosInstance from "../../services/axios";
+import loginBgLight from '../../assets/flex_bg_light.png';
+import loginBgDark from '../../assets/flex_bg_dark.png';
 
 export const Register = () => {
   const {
@@ -56,10 +58,10 @@ export const Register = () => {
       <Flex
         direction="column"
         align="center"
-        background={useColorModeValue(
-          "linear-gradient(90deg, #d1a9adff, #cb99abff)",
-          "linear-gradient(90deg, #3e3234ff, #36292eff)"
-        )}
+        backgroundImage={useColorModeValue(
+                  `url(${loginBgLight})`,
+                  `url(${loginBgDark})`
+                )}
         p={10}
         rounded={12}
         width="sm"
@@ -82,6 +84,7 @@ export const Register = () => {
               fontSize={"xs"}
               mt={6}
               textAlign="center"
+              rounded="full"
               {...register("username", {
                 required: "Required field",
                 minLength: { value: 5, message: "Username must be at least 5 characters long"},
@@ -103,6 +106,7 @@ export const Register = () => {
               fontSize={"xs"}
               mt={6}
               textAlign="center"
+              rounded="full"
               {...register("email", { required: "Required field" })}
             />
             <FormErrorMessage>
@@ -120,6 +124,7 @@ export const Register = () => {
               fontSize={"xs"}
               mt={6}
               textAlign="center"
+              rounded="full"
               {...register("password", {
                 required: "Required field",
                 minLength: { value: 8, message: "Password must be at least 8 characters long"},
@@ -136,9 +141,11 @@ export const Register = () => {
             isLoading={isSubmitting}
             loadingText="Logging in..."
             width="100%"
-            colorScheme="purple"
+            color={useColorModeValue("#1e191aff", "#f4e3d8ff")}
+            textColor={"#ffffffff"}
             variant="outline"
             mt={6}
+            rounded="full"
             type="submit"
           >
             Create Account
@@ -147,9 +154,11 @@ export const Register = () => {
           <Button
             onClick={() => navigate("/login", { replace: true })}
             width="100%"
-            colorScheme="gray"
+            color={useColorModeValue("#1e191aff", "#f4e3d8ff")}
+            textColor={"#ffffffff"}
             variant="outline"
             mt={6}
+            rounded="full"
           >
             Login
           </Button>

@@ -22,6 +22,8 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
+import loginBgLight from '../../assets/flex_bg_light.png';
+import loginBgDark from '../../assets/flex_bg_dark.png';
 
 export const AddUpdateTodoModal = ({
   editable = false,
@@ -69,7 +71,13 @@ export const AddUpdateTodoModal = ({
 
   return (
     <Box {...rest}>
-      <Button w="100%" colorScheme="purple" onClick={onOpen} rounded="full">
+      <Button w="100%"
+        onClick={onOpen}
+        backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
+        textColor={"#ffffffff"}
+        variant="outline"
+        rounded="full"
+      >
         {editable ? "UPDATE 2Door" : "ADD 2Door"}
       </Button>
       <Modal
@@ -87,10 +95,10 @@ export const AddUpdateTodoModal = ({
                         "linear-gradient(90deg, #1e191aff, #251a28ff)"
                     )}>{editable ? "Update 2Door" : "ADD 2Door"}</ModalHeader>
             <ModalCloseButton />
-            <ModalBody background={useColorModeValue(
-          "linear-gradient(90deg, #d1a9adff, #cb99abff)",
-          "linear-gradient(90deg, #3e3234ff, #36292eff)"
-        )}>
+            <ModalBody backgroundImage={useColorModeValue(
+              `url(${loginBgLight})`,
+              `url(${loginBgDark})`
+            )}>
               <FormControl isInvalid={errors.title}>
                 <Input
                   placeholder="Todo Title...."
@@ -172,13 +180,17 @@ export const AddUpdateTodoModal = ({
                         "linear-gradient(90deg, #1e191aff, #251a28ff)"
                     )}>
               <Stack direction="row" spacing={4}>
-                <Button onClick={onClose} disabled={isSubmitting}>
+                <Button onClick={onClose}
+                disabled={isSubmitting}
+                rounded={"full"}>
                   Close
                 </Button>
                 <Button
-                  colorScheme="purple"
                   type="submit"
                   isLoading={isSubmitting}
+                  rounded={"full"}
+                  backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
+                  textColor={"#ffffffff"}
                   loadingText={editable ? "Updating" : "Creating"}
                 >
                   {editable ? "Update" : "Create"}

@@ -11,6 +11,8 @@ import { Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { ThemeToggler } from "../Theme/ThemeToggler";
 import { MdFace3 } from 'react-icons/md';
+import headerBgLight from '../../assets/header_light.png';
+import headerBgDark from '../../assets/header_dark.png';
 
 export const NavBar = () => {
   const { logout } = useAuth();
@@ -22,10 +24,10 @@ export const NavBar = () => {
         justify="space-between"
         wrap="wrap"
         padding="1rem"
-        bgGradient={useColorModeValue(
-            "linear(to-r, #d1a9ad, #cb99ab)",
-            "linear(to-r, #3e3234, #36292e)"
-        )}
+        backgroundImage={useColorModeValue(
+                  `url(${headerBgLight})`,
+                  `url(${headerBgDark})`
+                )}
         >
         <Flex align="center" gap={0}>
             <Icon as={MdFace3} color="white" boxSize={6} mr={1} />
@@ -39,7 +41,11 @@ export const NavBar = () => {
 
         <Stack direction="row" align="center" spacing={4}>
             <ThemeToggler size="lg" />
-            <Button onClick={logout} colorScheme="purple">
+            <Button onClick={logout}
+            backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
+            textColor={"#ffffffff"}
+            variant="outline"
+            rounded="full">
             Logout
             </Button>
         </Stack>
