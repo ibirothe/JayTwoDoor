@@ -47,7 +47,7 @@ export const Register = () => {
 
   return (
     <Flex
-      height="100vh"
+      height="95vh"
       align="center"
       justify="center"
       background={useColorModeValue(

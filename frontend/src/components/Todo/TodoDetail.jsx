@@ -149,7 +149,7 @@ export const TodoDetail = () => {
 
       {/* Todo description */}
       <Box bg={descriptionBg} mt={3} p={3} rounded="lg">
-        <Text height={"450px"} whiteSpace="pre-line">{todo.description}</Text>
+        <Text height={"350px"} whiteSpace="pre-line">{todo.description}</Text>
       </Box>
 
       {/* Edit and Delete buttons */}
