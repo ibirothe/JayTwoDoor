@@ -1,16 +1,16 @@
-import { Container, HStack, Icon, Link, Stack } from '@chakra-ui/react'
+import { Container, HStack, Icon, Link, Stack, Image } from '@chakra-ui/react'
 import { SiGithub, SiX } from 'react-icons/si'
-import Logo from '../../assets/logo.png'
+import logo from '../../assets/logo.png'
 
 export const Footer = () => (
   <Container as="footer" py={{ base: '10', md: '12' }}>
     <Stack gap="6">
       <Stack direction="row" justify="space-between" align="center">
-        <Logo height="32" />
+        <Image src={logo} alt="Logo" height="32px" />
         <HStack gap="4">
           {socialLinks.map(({ href, icon }, index) => (
-            <Link key={index} href={href} colorPalette="gray">
-              <Icon size="md">{icon}</Icon>
+            <Link key={index} href={href} color="gray.500" isExternal>
+              <Icon as={icon} w={5} h={5} />
             </Link>
           ))}
         </HStack>
@@ -21,6 +21,6 @@ export const Footer = () => (
 )
 
 const socialLinks = [
-  { href: 'https://x.com', icon: <SiX /> },
-  { href: 'https://github.com/ibirothe', icon: <SiGithub /> },
+  { href: 'https://x.com', icon: SiX },
+  { href: 'https://github.com/ibirothe', icon: SiGithub },
 ]
