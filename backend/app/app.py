@@ -15,7 +15,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -29,7 +29,7 @@ async def app_init():
     Connects to MongoDB, sets up Beanie with defined models,
     and prepares the database for use.
     """
-    db_client = AsyncIOMotorClient(settings.MONGO_CONNECTION_STRING).todoapp
+    db_client = AsyncIOMotorClient(settings.JAY2DOOR_MONGODB_URI).todoapp
 
     await init_beanie(
         database=db_client,

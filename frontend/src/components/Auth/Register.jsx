@@ -51,7 +51,7 @@ export const Register = () => {
       align="center"
       justify="center"
       background={useColorModeValue(
-        "linear-gradient(90deg, #f4e3d8ff, #f6d2d6ff)",
+        "linear-gradient(90deg, #f6d8baff, #fae1e1ff)",
         "linear-gradient(90deg, #1e191aff, #251a28ff)"
       )}
     >

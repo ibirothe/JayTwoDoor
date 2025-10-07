@@ -52,8 +52,8 @@ class User(Document):
         """
         return await cls.find_one(cls.email)
     
-    class Collection:
+    class Settings:
         """
-        MongoDB collection configuration.
+        MongoDB setting configuration.
         """
         name = "users"

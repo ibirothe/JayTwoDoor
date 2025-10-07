@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./components/Auth/Login";
 import { Register } from "./components/Auth/Register";
-import { AuthContext, AuthConsumer, AuthProvider } from "./context/JWTAuthContext"
+import { AuthConsumer, AuthProvider } from "./context/JWTAuthContext"
 import { Flex, Spinner } from "@chakra-ui/react";
 import { PublicRoute } from "./components/Auth/PublicRoute";
 import { Authenticated } from "./components/Auth/Authenticated";
 import { NavBar } from "./components/Navbar/NavBar";
+import { Footer } from "./components/Footer/Footer";
 import { TodoList } from "./components/Todo/TodoList";
 import { TodoDetail } from "./components/Todo/TodoDetail";
 
@@ -63,6 +64,12 @@ function App() {
                         <Authenticated>
                           <TodoDetail />
                         </Authenticated>
+                      }
+                    />
+                  <Route
+                      path="/"
+                      element={
+                        <Footer/>
                       }
                     />
                   </Route>

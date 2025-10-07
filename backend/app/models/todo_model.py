@@ -39,8 +39,8 @@ class Todo(Document):
         """
         self.updated_at = datetime.utcnow()
     
-    class Collection:
+    class Settings:
         """
-        MongoDB collection configuration.
+        MongoDB setting configuration.
         """
         name = "todos"
