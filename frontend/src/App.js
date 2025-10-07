@@ -34,26 +34,26 @@ function App() {
                 <Route path="/register" element={<PublicRoute><Register /><Footer /></PublicRoute>} />
 
                 {/* Authenticated pages */}
-                <Route
-                  path="/"
-                  element={
-                    <Authenticated>
-                      <NavBar />
-                      <TodoList />
-                      <Footer />
-                    </Authenticated>
-                  }
-                />
-                <Route
-                  path="/:todoId"
-                  element={
-                    <Authenticated>
-                      <NavBar />
-                      <TodoDetail />
-                      <Footer />
-                    </Authenticated>
-                  }
-                />
+                <Route path="/" element={<NavBar />}>
+                  <Route
+                    path="/"
+                    element={
+                      <Authenticated>
+                        <TodoList />
+                        <Footer />
+                      </Authenticated>
+                    }
+                  />
+                  <Route
+                    path="/:todoId"
+                    element={
+                      <Authenticated>
+                        <TodoDetail />
+                        <Footer />
+                      </Authenticated>
+                    }
+                  />
+                </Route>
 
                 {/* Fallback */}
                 <Route path="*" element={<Navigate to="/" />} />
