@@ -23,7 +23,8 @@ export const LandingHero = () => {
       background="linear-gradient(90deg, #1e191aff, #251a28ff)"
     >
       <Flex
-        width="lg"
+        width={450}
+        height={450}
         rounded="3xl"
         align="center"
         justify="center"
@@ -47,11 +48,11 @@ export const LandingHero = () => {
             bgGradient="linear(to-r, #1e191aff, #251a28ff)"
             fontWeight="extrabold"
           >
-            Tasks, Lighter Mind
+            Tasks, <br />Lighter Mind
           </Text>{" "}
         </Heading>
       </Flex>
-      <Flex width="lg"
+      <Flex width={450}
       align="center"
         justify="center">
         <Text align={"center"} color="white"><b>Jay2Door</b> started with a mispronunciation and a
