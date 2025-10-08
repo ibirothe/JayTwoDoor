@@ -10,6 +10,7 @@ import { Login } from "./components/Auth/Login";
 import { Register } from "./components/Auth/Register";
 import { TodoList } from "./components/Todo/TodoList";
 import { TodoDetail } from "./components/Todo/TodoDetail";
+import { LandingHero } from "./components/Landing/LandingPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             ) : (
               <Routes>
                 {/* Public pages */}
+                <Route path="/home" element={<PublicRoute><LandingHero/><Footer /></PublicRoute>} />
                 <Route path="/login" element={<PublicRoute><Login /><Footer /></PublicRoute>} />
                 <Route path="/register" element={<PublicRoute><Register /><Footer /></PublicRoute>} />
 
@@ -56,7 +58,7 @@ function App() {
                 </Route>
 
                 {/* Fallback */}
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="*" element={<Navigate to="/home" />} />
               </Routes>
             )
           }
