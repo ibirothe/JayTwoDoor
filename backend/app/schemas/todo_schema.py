@@ -10,6 +10,7 @@ class TodoCreate(BaseModel):
     title: str = Field(..., title="Title", max_length=55, min_length=1)
     description: str = Field(..., title="Description", max_length=755, min_length=1)
     status: Optional[bool] = False
+    assignee: Optional[int] = 0
     
     
 class TodoUpdate(BaseModel):
@@ -19,6 +20,7 @@ class TodoUpdate(BaseModel):
     title: Optional[str] = Field(..., title="Title", max_length=55, min_length=1)
     description: Optional[str] = Field(..., title="Description", max_length=755, min_length=1)
     status: Optional[bool] = False
+    assignee: Optional[int]
     
 
 class TodoOut(BaseModel):
@@ -31,3 +33,4 @@ class TodoOut(BaseModel):
     description: str
     created_at: datetime
     updated_at: datetime
+    assignee: int

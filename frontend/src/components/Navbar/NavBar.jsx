@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { ThemeToggler } from "../Theme/ThemeToggler";
+import ThemeButton from "../Theme/ThemeButton";
 import { MdFace3 } from 'react-icons/md';
 import headerBgLight from '../../assets/header_light.png';
 import headerBgDark from '../../assets/header_dark.png';
@@ -40,7 +40,7 @@ export const NavBar = () => {
         </Flex>
 
         <Stack direction="row" align="center" spacing={4}>
-            <ThemeToggler size="lg" />
+            <ThemeButton size="lg" />
             <Button onClick={logout}
             backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
             textColor={"#ffffffff"}
