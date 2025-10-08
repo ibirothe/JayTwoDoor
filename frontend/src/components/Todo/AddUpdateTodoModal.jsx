@@ -22,8 +22,9 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
-import loginBgLight from '../../assets/flex_bg_light.png';
-import loginBgDark from '../../assets/flex_bg_dark.png';
+import editBgLight from '../../assets/edit_bg_light.png';
+import editBgDark from '../../assets/edit_bg_dark.png';
+import AssigneeButton from "../Assignee/AssigneeButton";
 
 export const AddUpdateTodoModal = ({
   editable = false,
@@ -34,13 +35,11 @@ export const AddUpdateTodoModal = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const { todoId } = useParams();
-  const {
-    handleSubmit,
-    register,
-    control,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: { ...defaultValues },
+  const { handleSubmit, register, control, formState: { errors, isSubmitting } } = useForm({
+    defaultValues: { 
+      ...defaultValues, 
+      assignee: defaultValues.assignee ?? 0
+    },
   });
 
   const onSubmit = async (values) => {
@@ -90,15 +89,22 @@ export const AddUpdateTodoModal = ({
         <ModalOverlay />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalContent>
-            <ModalHeader background={useColorModeValue(
+            <ModalHeader
+              background={useColorModeValue(
                         "linear-gradient(90deg, #f4e3d8ff, #f6d2d6ff)",
                         "linear-gradient(90deg, #1e191aff, #251a28ff)"
-                    )}>{editable ? "Update 2Door" : "ADD 2Door"}</ModalHeader>
+                    )}>
+              {editable ? "Update 2Door" : "ADD 2Door"}
+            </ModalHeader>
             <ModalCloseButton />
-            <ModalBody backgroundImage={useColorModeValue(
-              `url(${loginBgLight})`,
-              `url(${loginBgDark})`
-            )}>
+            <ModalBody
+            backgroundImage={useColorModeValue(
+              `url(${editBgLight})`,
+              `url(${editBgDark})`
+            )}
+            backgroundSize="cover"
+            backgroundPosition="center"
+            backgroundRepeat="no-repeat">
               <FormControl isInvalid={errors.title}>
                 <Input
                   placeholder="Todo Title...."
@@ -113,8 +119,8 @@ export const AddUpdateTodoModal = ({
                   {...register("title", {
                     required: "This is required field",
                     minLength: {
-                      value: 5,
-                      message: "Title must be at least 5 characters",
+                      value: 1,
+                      message: "Title must be at least 1 characters",
                     },
                     maxLength: {
                       value: 55,
@@ -141,8 +147,8 @@ export const AddUpdateTodoModal = ({
                   {...register("description", {
                     required: "This is required field",
                     minLength: {
-                      value: 5,
-                      message: "Description must be at least 5 characters",
+                      value: 1,
+                      message: "Description must be at least 1 characters",
                     },
                     maxLength: {
                       value: 200,
@@ -154,26 +160,41 @@ export const AddUpdateTodoModal = ({
                   {errors.description && errors.description.message}
                 </FormErrorMessage>
               </FormControl>
+              <Stack direction="row" spacing={2} align={"center"} justify={"center"}>
+                <Controller
+                  control={control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormControl ml={6} mt={6} display="flex" alignItems={"center"}>
+                      <FormLabel htmlFor="is-done">Status</FormLabel>
+                      <Switch
+                        onChange={(e) => field.onChange(e.target.checked)}
+                        isChecked={field.value}
+                        id="id-done"
+                        size="md"
+                        name="status"
+                        isDisabled={false}
+                        isLoading={false}
+                        colorScheme="purple"
+                        variant="ghost"
+                      />
+                    </FormControl>
+                  )}
+                />
               <Controller
                 control={control}
-                name="status"
+                name="assignee"
                 render={({ field }) => (
-                  <FormControl mt={6} display="flex" alignItems="center">
-                    <FormLabel htmlFor="is-done">Status</FormLabel>
-                    <Switch
-                      onChange={(e) => field.onChange(e.target.checked)}
-                      isChecked={field.value}
-                      id="id-done"
-                      size="lg"
-                      name="status"
-                      isDisabled={false}
-                      isLoading={false}
-                      colorScheme="purple"
-                      variant="ghost"
+                  <FormControl mt={6} display="flex">
+                    <FormLabel htmlFor="assignee">Assignee</FormLabel>
+                    <AssigneeButton
+                      value={field.value}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                 )}
               />
+            </Stack>
             </ModalBody>
             <ModalFooter background={useColorModeValue(
                         "linear-gradient(90deg, #f4e3d8ff, #f6d2d6ff)",
