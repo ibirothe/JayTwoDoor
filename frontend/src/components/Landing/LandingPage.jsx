@@ -12,19 +12,20 @@ import landingBgLight from "../../assets/landing_light.png";
 import MirrorText from "../Text/MirrorText";
 
 export const LandingHero = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <Stack
       align="center"
-      py={32}
-      height={"95vh"}
-      mx="auto"
-      spacing={{ base: 4, lg: 8 }}
+      py={{ base: 16, md: 32 }}
+      px={{ base: 4, md: 0 }}
+      minH="95vh"
+      spacing={{ base: 6, md: 12 }}
       background="linear-gradient(90deg, #1e191aff, #251a28ff)"
     >
+      {/* Hero Image */}
       <Flex
-        width={450}
-        height={450}
+        w={{ base: "80%", sm: "60%", md: "450px" }}
+        h={{ base: "60vw", sm: "60%", md: "450px" }}
         rounded="3xl"
         align="center"
         justify="center"
@@ -35,11 +36,12 @@ export const LandingHero = () => {
       >
         <Heading
           mb={6}
-          fontSize={{ base: "4xl", md: "6xl", lg: "8xl" }}
+          fontSize={{ base: "3xl", md: "6xl", lg: "8xl" }}
           fontWeight="bold"
           lineHeight="none"
           letterSpacing={{ base: "normal", md: "tight" }}
           color="white"
+          textAlign="center"
         >
           Shared{" "}
           <Text
@@ -49,35 +51,41 @@ export const LandingHero = () => {
             fontWeight="extrabold"
           >
             Tasks, <br />Lighter Mind
-          </Text>{" "}
+          </Text>
         </Heading>
       </Flex>
-      <Flex width={450}
-      align="center"
-        justify="center">
-        <Text align={"center"} color="white"><b>Jay2Door</b> started with a mispronunciation and a
-            simple goal: make it easier for couples to
-            share the <b>mental load</b>. It’s a todo app built
-            to help spouses manage tasks <b>together</b>, without
-            overcomplicating things. The service is dedicated
-            to my wife - <b>grateful</b> for having her in
-            my life, and for inspiring this project.</Text>
+
+      {/* Description */}
+      <Flex
+        w={{ base: "90%", md: "450px" }}
+        align="center"
+        justify="center"
+      >
+        <Text align="center" color="white" fontSize={{ base: "sm", md: "md" }}>
+          <b>Jay2Door</b> makes it easier for couples to share the <b>mental load</b>. 
+          It’s a todo app built to help spouses manage tasks <b>together</b>.
+          This service is dedicated to my wonderful wife - <b>grateful</b> 
+          for having her in my life, and for inspiring this project.
+        </Text>
       </Flex>
+
+      {/* Call to Action */}
       <Flex
         flexDirection={{ base: "column", sm: "row" }}
         mb={{ base: 4, md: 8 }}
         gap={4}
+        align="center"
       >
         <Button
-          backgroundColor={"#958867ff"}
-          textColor="#ffffffff"
+          bg="#958867ff"
+          color="white"
           variant="outline"
           rounded="full"
           size="lg"
           onClick={() => navigate(`/login`, { replace: true })}
         >
           <Icon boxSize={4} mr={3} as={MdFace3} />
-          <MirrorText/>
+          <MirrorText />
           <Icon boxSize={4} ml={3} as={MdFace6} />
         </Button>
       </Flex>
