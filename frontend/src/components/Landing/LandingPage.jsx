@@ -64,8 +64,8 @@ export const LandingHero = () => {
         <Text align="center" color="white" fontSize={{ base: "sm", md: "md" }}>
           <b>Jay2Door</b> makes it easier for couples to share the <b>mental load</b>. 
           It’s a todo app built to help spouses manage tasks <b>together</b>.
-          This service is dedicated to my wonderful wife - <b>grateful</b> 
-          for having her in my life, and for inspiring this project.
+          This service is dedicated to my wonderful wife - <b>grateful</b> for having her in my 
+          life, and for inspiring this project.
         </Text>
       </Flex>
 
@@ -76,6 +76,15 @@ export const LandingHero = () => {
         gap={4}
         align="center"
       >
+        <Button
+          color="white"
+          variant="outline"
+          rounded="full"
+          size="lg"
+          onClick={() => navigate(`/login`, { replace: true })}
+        >
+          Learn More
+        </Button>
         <Button
           bg="#958867ff"
           color="white"

@@ -4,7 +4,7 @@ import AssigneeDisplay from '../Assignee/AssigneeDisplay';
 import cardBgLight from '../../assets/card_bg_light.png';
 import cardBgDark from '../../assets/card_bg_dark.png';
 
-export const TodoCard = ({ todo }) => {
+export const TodoCard = ({ todo, user}) => {
   const navigate = useNavigate();
   return (
     <Flex
@@ -30,7 +30,7 @@ export const TodoCard = ({ todo }) => {
         <Badge rounded="full" colorScheme={todo.status ? "green" : "purple"} mr={2}>
           {todo.status ? "Complete" : "Pending"}
         </Badge>
-        <AssigneeDisplay assignee={todo.assignee}/>
+        <AssigneeDisplay assignee={todo.assignee} user={user} />
       </Box>
     </Flex>
   );

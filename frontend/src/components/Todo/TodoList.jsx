@@ -3,8 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import axiosInstance from "../../services/axios";
 import { AddUpdateTodoModal } from "./AddUpdateTodoModal";
 import { TodoCard } from "./TodoCard";
+import { useContext } from "react";
+import { AuthContext } from "../../context/JWTAuthContext";
 
 export const TodoList = () => {
+  const { user } = useContext(AuthContext);
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const isMounted = useRef(false);
@@ -51,7 +54,7 @@ export const TodoList = () => {
             ) : (
                 <Box mt={6}>
                 {todos?.map((todo) => (
-                    <TodoCard todo={todo} key={todo.id} />
+                    <TodoCard todo={todo} key={todo.id} user={user}/>
                 ))}
                 </Box>
             )}

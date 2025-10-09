@@ -1,6 +1,6 @@
 from typing import Optional
 from uuid import UUID
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, constr
 
 class UserAuth(BaseModel):
     """
@@ -18,8 +18,14 @@ class UserOut(BaseModel):
     user_id: UUID
     username: str
     email: EmailStr
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
+    zone: Optional[str] = None
+    language: Optional[str] = None
+    spouse_a_name: Optional[str] = None
+    spouse_b_name: Optional[str] = None
+    spouse_a_email: Optional[str] = None
+    spouse_b_email: Optional[str] = None
+    spouse_a_icon: Optional[int] = 0
+    spouse_b_icon: Optional[int] = 1
     disabled: Optional[bool] = False
 
 
@@ -30,6 +36,12 @@ class UserUpdate(BaseModel):
     email: Optional[EmailStr] = Field(None, description="New email for the user")
     username: Optional[str] = Field(None, min_length=8, max_length=32, description="New username")
     password: Optional[str] = Field(None, min_length=8, max_length=32, description="New password")
-    first_name: Optional[str] = Field(None, description="New first name")
-    last_name: Optional[str] = Field(None, description="New last name")
+    zone: Optional[str] = Field(None, description="New timezone")
+    language: Optional[constr(min_length=2, max_length=2)] = Field(None, description="New language")
+    spouse_a_name: Optional[str] = Field(None, description="New spouse a name")
+    spouse_b_name: Optional[str] = Field(None, description="New spouse b name")
+    spouse_a_email: Optional[EmailStr] = Field(None, description="New spouse a email")
+    spouse_b_email: Optional[EmailStr] = Field(None, description="New spouse b email")
+    spouse_a_icon: Optional[int] = Field(None, description="New spouse a icon")
+    spouse_b_icon: Optional[int] = Field(None, description="New spouse b icon")
     disabled: Optional[bool] = Field(None, description="Disable or enable the user")
