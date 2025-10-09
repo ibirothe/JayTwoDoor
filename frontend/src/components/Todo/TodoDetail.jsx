@@ -12,11 +12,13 @@ import {
   Code,
   Icon,
 } from "@chakra-ui/react";
-import { MdDeleteOutline, MdOutlineCreate, MdOutlineUpdate } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineCreate } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
 import { AddUpdateTodoModal } from "./AddUpdateTodoModal";
+import { useContext } from "react";
+import { AuthContext } from "../../context/JWTAuthContext";
 import detailBgLight from '../../assets/flex_bg_light.png';
 import detailBgDark from '../../assets/flex_bg_dark.png';
 
@@ -27,6 +29,7 @@ export const TodoDetail = () => {
   const { todoId } = useParams();
   const navigate = useNavigate();
   const toast = useToast();
+  const { user } = useContext(AuthContext);
 
   const imageBg = useColorModeValue(
     `url(${detailBgLight})`,
@@ -118,7 +121,7 @@ export const TodoDetail = () => {
         />
       </Flex>
 
-      {/* Create and Update time */}
+      {/* Create time */}
       <Box display="flex" alignItems="center" gap={1} mt={2}>
         <Icon as={MdOutlineCreate} boxSize={4} color="grey.200"/>
         <Code variant="outline" fontSize="sm" color="grey.200">
@@ -131,21 +134,6 @@ export const TodoDetail = () => {
           })}
         </Code>
       </Box>
-
-      {todo.created_at !== todo.updated_at && (
-        <Box display="flex" alignItems="center" gap={1}>
-          <Icon as={MdOutlineUpdate} boxSize={4} color="red.200" />
-          <Code variant="outline" fontSize="sm" color="red.200">
-            {new Date(todo.updated_at).toLocaleString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </Code>
-        </Box>
-      )}
 
       {/* Todo description */}
       <Box bg={descriptionBg} mt={3} p={3} rounded="lg">
@@ -162,6 +150,7 @@ export const TodoDetail = () => {
               description: todo.description,
               status: todo.status,
             }}
+            user={user}
             onSuccess={fetchTodo}
             width="100%"
           />

@@ -11,18 +11,19 @@ const spouse_icons = {
 };
 
 export default function AssigneeDisplay({ assignee, user }) {
-  const isAssigned = assignee;
+  const numericAssignee = Number(assignee);
+  const isSpouseA = numericAssignee === 0;
 
   const spouseAIcon = spouse_icons[user?.spouse_a_icon] || MdFace;
   const spouseBIcon = spouse_icons[user?.spouse_b_icon] || MdFace;
 
-  const icon = assignee ? spouseAIcon : spouseBIcon;
+  const icon = isSpouseA ? spouseAIcon : spouseBIcon;
 
   return (
     <div style={{ display: 'flex', gap: '4px' }}>
       <Icon
         as={icon}
-        color={isAssigned ? "#958867ff": "white" }
+        color={isSpouseA ? "white" : "#958867ff"}
         boxSize={6}
       />
     </div>

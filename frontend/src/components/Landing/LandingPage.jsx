@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { MdFace3, MdFace6 } from "react-icons/md";
 import landingBgLight from "../../assets/landing_light.png";
+import landingBgReflectionLight from "../../assets/landing_reflection_light.png";
 import MirrorText from "../Text/MirrorText";
 
 export const LandingHero = () => {
@@ -16,17 +17,17 @@ export const LandingHero = () => {
   return (
     <Stack
       align="center"
-      py={{ base: 16, md: 32 }}
+      py={{ base: 12, md: 12 }}
       px={{ base: 4, md: 0 }}
       minH="95vh"
-      spacing={{ base: 6, md: 12 }}
+      spacing={{ base: 0, md: 0 }}
       background="linear-gradient(90deg, #1e191aff, #251a28ff)"
     >
       {/* Hero Image */}
       <Flex
         w={{ base: "80%", sm: "60%", md: "450px" }}
         h={{ base: "60vw", sm: "60%", md: "450px" }}
-        rounded="3xl"
+        roundedTop="3xl"
         align="center"
         justify="center"
         backgroundSize="cover"
@@ -57,11 +58,17 @@ export const LandingHero = () => {
 
       {/* Description */}
       <Flex
-        w={{ base: "90%", md: "450px" }}
+        w={{ base: "80%", sm: "60%", md: "450px" }}
+        h={{ base: "50vw", sm: "20%", md: "250px" }}
         align="center"
         justify="center"
+        roundedBottom="3xl"
+        backgroundSize="cover"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundImage={`url(${landingBgReflectionLight})`}
       >
-        <Text align="center" color="white" fontSize={{ base: "sm", md: "md" }}>
+        <Text ml={6} mr={6} align="center" color="white" fontSize={{ base: "sm", md: "md" }}>
           <b>Jay2Door</b> makes it easier for couples to share the <b>mental load</b>. 
           It’s a todo app built to help spouses manage tasks <b>together</b>.
           This service is dedicated to my wonderful wife - <b>grateful</b> for having her in my 
@@ -73,29 +80,30 @@ export const LandingHero = () => {
       <Flex
         flexDirection={{ base: "column", sm: "row" }}
         mb={{ base: 4, md: 8 }}
+        mt={{ base: 4, md: 8 }}
         gap={4}
         align="center"
       >
-        <Button
-          color="white"
-          variant="outline"
-          rounded="full"
-          size="lg"
-          onClick={() => navigate(`/login`, { replace: true })}
-        >
-          Learn More
-        </Button>
         <Button
           bg="#958867ff"
           color="white"
           variant="outline"
           rounded="full"
-          size="lg"
+          size={{ base: "md", md: "lg" }}
           onClick={() => navigate(`/login`, { replace: true })}
         >
           <Icon boxSize={4} mr={3} as={MdFace3} />
           <MirrorText />
           <Icon boxSize={4} ml={3} as={MdFace6} />
+        </Button>
+        <Button
+          color="white"
+          variant="outline"
+          rounded="full"
+          size={{ base: "md", md: "lg" }}
+          onClick={() => navigate(`/`, { replace: true })}
+        >
+          Learn More
         </Button>
       </Flex>
     </Stack>

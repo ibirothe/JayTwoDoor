@@ -40,7 +40,7 @@ export const TodoList = () => {
         "linear-gradient(90deg, #1e191aff, #251a28ff)"
       )}>
         <Container mt={4}>
-            <AddUpdateTodoModal onSuccess={fetchTodos} />
+            <AddUpdateTodoModal onSuccess={fetchTodos} user={user} />
             {loading ? (
                 <Center mt={6}>
                     <Spinner

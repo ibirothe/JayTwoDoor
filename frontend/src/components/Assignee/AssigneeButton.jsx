@@ -1,5 +1,5 @@
 import { Icon } from "@chakra-ui/react";
-import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from 'react-icons/md';
+import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from "react-icons/md";
 
 const spouse_icons = {
   0: MdFace,
@@ -10,26 +10,24 @@ const spouse_icons = {
   5: MdFace6,
 };
 
-export default function AssigneeButton({ value, onChange, spouse_a_icon, spouse_b_icon }) {
-  // Pick icons dynamically based on database values
-  const spouseAIcon = spouse_icons[spouse_a_icon] || MdFace;
-  const spouseBIcon = spouse_icons[spouse_b_icon] || MdFace;
+export default function AssigneeButton({ value , onChange, user }) {
+  const assignee = Number(value);
 
-  // Choose icon based on current value
-  const icon = value === 0 ? spouseAIcon : spouseBIcon;
+  const spouseAIcon = spouse_icons[user?.spouse_a_icon] || MdFace;
+  const spouseBIcon = spouse_icons[user?.spouse_b_icon] || MdFace;
 
-  // Color: white for the currently assigned, gray for the other
-  const color = value === 0 ? "white" : "#958867ff";
+  const isSpouseA = assignee === 0;
+  const icon = isSpouseA ? spouseAIcon : spouseBIcon;
 
   return (
     <Icon
       as={icon}
-      color={color}
+      color={isSpouseA ? "white" : "#958867ff"}
       boxSize={6}
       ml={2}
       mt={0}
       cursor="pointer"
-      onClick={() => onChange(value === 0 ? 1 : 0)}
+      onClick={() => onChange(isSpouseA ? 1 : 0)}
       _hover={{ opacity: 0.8, transform: "scale(1.1)" }}
       transition="all 0.2s ease-in-out"
     />
