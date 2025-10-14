@@ -101,7 +101,7 @@ export const AddUpdateTodoModal = ({
         variant="outline"
         rounded="full"
       >
-        {editable ? "UPDATE 2Door" : "ADD 2Door"}
+        {editable ? "Update 2Door" : "Add 2Door"}
       </Button>
 
       <Modal
@@ -120,7 +120,7 @@ export const AddUpdateTodoModal = ({
                 "linear-gradient(90deg, #1e191aff, #251a28ff)"
               )}
             >
-              {editable ? "Update 2Door" : "ADD 2Door"}
+              {editable ? "Update 2Door" : "Add 2Door"}
             </ModalHeader>
             <ModalCloseButton />
 

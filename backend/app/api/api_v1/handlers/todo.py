@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Literal
 from uuid import UUID
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from app.models.user_model import User
 from app.api.deps.user_deps import get_current_user
 from app.schemas.todo_schema import TodoOut, TodoCreate, TodoUpdate
@@ -10,17 +10,15 @@ from app.models.todo_model import Todo
 todo_router = APIRouter()
 
 @todo_router.get('/', summary="Get all todos of the user", response_model=List[TodoOut])
-async def list(current_user: User = Depends(get_current_user)):
+async def list_todos(
+    sort_by: Literal['assignee', 'newest', 'oldest', 'status'] | None = Query(None, description="Sort todos by this field"),
+    current_user: User = Depends(get_current_user)
+):
     """
-    Retrieve all todos for the current user.
-
-    Args:
-        current_user (User): Authenticated user.
-
-    Returns:
-        List[TodoOut]: List of user's todos.
+    Retrieve all todos for the current user, optionally sorted.
     """
-    return await TodoService.list_todos(current_user)
+    return await TodoService.list_todos(current_user, sort_by=sort_by)
+
 
 @todo_router.post('/create', summary="Create Todo", response_model=Todo)
 async def create_todo(data: TodoCreate, current_user: User = Depends(get_current_user)):
