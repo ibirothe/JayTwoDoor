@@ -13,6 +13,7 @@ import {
 import { MdAdd, MdMinimize } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import landingBgLight from "../../assets/landing_light.png";
+import MirrorText from "../Text/MirrorText";
 
 export const About = () => {
   const navigate = useNavigate();
@@ -156,6 +157,16 @@ export const About = () => {
         gap={4}
         align="center"
       >
+         <Button
+          bg="#958867ff"
+          color="white"
+          variant="outline"
+          rounded="full"
+          size={{ base: "md", md: "lg" }}
+          onClick={() => navigate(`/register`, { replace: true })}
+        >
+          <MirrorText />
+        </Button>
         <Button
           color="white"
           variant="outline"
@@ -164,16 +175,6 @@ export const About = () => {
           onClick={() => navigate(`/back`, { replace: true })}
         >
           Back
-        </Button>
-        <Button
-          bg="#958867ff"
-          color="white"
-          variant="outline"
-          rounded="full"
-          size={{ base: "md", md: "lg" }}
-          onClick={() => navigate(`/login`, { replace: true })}
-        >
-          Login
         </Button>
       </Flex>
     </Stack>

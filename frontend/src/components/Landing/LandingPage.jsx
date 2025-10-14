@@ -88,7 +88,7 @@ export const LandingHero = () => {
           variant="outline"
           rounded="full"
           size={{ base: "md", md: "lg" }}
-          onClick={() => navigate(`/login`, { replace: true })}
+          onClick={() => navigate(`/register`, { replace: true })}
         >
           <MirrorText />
         </Button>
