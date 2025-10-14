@@ -34,7 +34,7 @@ class UserUpdate(BaseModel):
     Schema for updating user details. All fields are optional.
     """
     email: Optional[EmailStr] = Field(None, description="New email for the user")
-    username: Optional[str] = Field(None, min_length=8, max_length=32, description="New username")
+    username: Optional[str] = Field(None, min_length=3, max_length=32, description="New username")
     password: Optional[str] = Field(None, min_length=8, max_length=32, description="New password")
     zone: Optional[str] = Field(None, description="New timezone")
     language: Optional[constr(min_length=2, max_length=2)] = Field(None, description="New language")

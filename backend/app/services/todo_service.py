@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Literal
 from uuid import UUID
 from app.models.user_model import User
 from app.models.todo_model import Todo
@@ -10,17 +10,29 @@ class TodoService:
     """
 
     @staticmethod
-    async def list_todos(user: User) -> List[Todo]:
+    async def list_todos(user: User, sort_by: Literal["assignee", "created_at", "status"] | None = None) -> List[Todo]:
         """
-        Get all todos for a user.
+        Get all todos for a user, optionally sorted.
 
         Args:
             user (User): The owner of the todos.
+            sort_by (str, optional): Field to sort by ('assignee', 'created_at' or 'status').
 
         Returns:
             List[Todo]: List of user's todos.
         """
-        todos = await Todo.find(Todo.owner.id == user.id).to_list()
+        query = Todo.find(Todo.owner.id == user.id)
+
+        if sort_by == "assignee":
+            query = query.sort(Todo.assignee)
+        elif sort_by == "oldest":
+            query = query.sort(Todo.created_at)
+        elif sort_by == "status":
+            query = query.sort(Todo.status)
+        else:
+            query = query.sort(-Todo.created_at)
+
+        todos = await query.to_list()
         return todos
     
     @staticmethod
