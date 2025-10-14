@@ -26,7 +26,6 @@ const FlipLink = ({ text, config = {} }) => {
       position="relative"
       display="block"
       overflow="hidden"
-      whiteSpace="nowrap"
       textDecoration="none"
     >
       <Box>

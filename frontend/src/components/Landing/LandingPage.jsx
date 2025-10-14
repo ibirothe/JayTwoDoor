@@ -3,11 +3,9 @@ import {
   Stack,
   Flex,
   Heading,
-  Icon,
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { MdFace3, MdFace6 } from "react-icons/md";
 import landingBgLight from "../../assets/landing_light.png";
 import landingBgReflectionLight from "../../assets/landing_reflection_light.png";
 import MirrorText from "../Text/MirrorText";
@@ -72,7 +70,7 @@ export const LandingHero = () => {
           <b>Jay2Door</b> makes it easier for couples to share the <b>mental load</b>. 
           It’s a todo app built to help spouses manage tasks <b>together</b>.
           This service is dedicated to my wonderful wife - <b>grateful</b> for having her in my 
-          life, and for inspiring this project.
+          life, and for inspiring me every day.
         </Text>
       </Flex>
 
@@ -92,16 +90,14 @@ export const LandingHero = () => {
           size={{ base: "md", md: "lg" }}
           onClick={() => navigate(`/login`, { replace: true })}
         >
-          <Icon boxSize={4} mr={3} as={MdFace3} />
           <MirrorText />
-          <Icon boxSize={4} ml={3} as={MdFace6} />
         </Button>
         <Button
           color="white"
           variant="outline"
           rounded="full"
           size={{ base: "md", md: "lg" }}
-          onClick={() => navigate(`/`, { replace: true })}
+          onClick={() => navigate(`/about`, { replace: true })}
         >
           Learn More
         </Button>
