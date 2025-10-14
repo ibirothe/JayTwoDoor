@@ -4,35 +4,31 @@ import {
   Flex,
   Stack,
   Text,
-  useColorModeValue,
   Icon
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import ThemeButton from "../Theme/ThemeButton";
 import { MdFace3 } from 'react-icons/md';
-import headerBgLight from '../../assets/header_light.png';
-import headerBgDark from '../../assets/header_dark.png';
+import headerBgOut from '../../assets/header_out.png';
 
-export const NavBar = () => {
-  const { logout } = useAuth();
+export const OutNavBar = () => {
+  const navigate = useNavigate();
   return (
-    <Box minHeight="100vh">
+    <Box>
       <Flex
         as="nav"
         align="center"
         justify="space-between"
         wrap="wrap"
-        padding="1rem"
-        backgroundSize={"cover"}
-        backgroundImage={useColorModeValue(
-                  `url(${headerBgLight})`,
-                  `url(${headerBgDark})`
-                )}
+        p="1rem"
+        bgImage={`linear-gradient(0deg, #00000066, #00000000), url(${headerBgOut})`}
+        bgSize="cover"
+        bgPos="center"
+        bgRepeat="no-repeat"
         >
         <Flex align="center" gap={0}>
             <Icon as={MdFace3} color="white" boxSize={6} mr={1} />
-            <Text as="h2" fontSize={24} color={useColorModeValue("#3e3234","#cb99ab")} fontWeight="bold">
+            <Text as="h2" fontSize={24} color={"#cb99ab"} fontWeight="bold">
             JAY
             </Text>
             <Text as="h2" fontSize={24} fontWeight="bold" color="white">
@@ -41,13 +37,12 @@ export const NavBar = () => {
         </Flex>
 
         <Stack direction="row" align="center" spacing={4}>
-            <ThemeButton size="lg" />
-            <Button onClick={logout}
-            backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
+            <Button onClick={() => navigate(`/login`, { replace: true })}
+            backgroundColor={"#5c5563ff"}
             textColor={"#ffffffff"}
             variant="outline"
             rounded="full">
-            Logout
+            Login
             </Button>
         </Stack>
         </Flex>
