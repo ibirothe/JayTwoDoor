@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { MdAdd, MdMinimize } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import landingBgLight from "../../assets/landing_light.png";
+import aboutBg from "../../assets/faq_bg.jpg";
 import MirrorText from "../Text/MirrorText";
 
 export const About = () => {
@@ -20,7 +20,7 @@ export const About = () => {
   const FAQItem = ({ question, answer }) => {
     return (
       <AccordionItem
-        bgGradient="linear(to-r, #1e191a88, #251a2866)"
+        bgGradient="linear(to-r, #1e191a99, #251a28BB)"
         borderColor="#251a28ff"
       >
         {({ isExpanded }) => (
@@ -82,7 +82,7 @@ export const About = () => {
         backgroundSize="cover"
         backgroundPosition="top"
         backgroundRepeat="no-repeat"
-        backgroundImage={`url(${landingBgLight})`}
+        backgroundImage={`url(${aboutBg})`}
       >
         <Box
           py={12}
@@ -113,8 +113,9 @@ export const About = () => {
                 About{" "}
                 <Text
                   display="inline"
+                  letterSpacing="tight"
                   bgClip="text"
-                  bgGradient="linear(to-r, #1e191aff, #251a28ff)"
+                  bgGradient="linear(to-r, #deb3c3ff, #e5e2e5ff)"
                   fontWeight="extrabold"
                 >
                   JAY2DOOR

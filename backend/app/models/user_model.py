@@ -20,7 +20,7 @@ class User(Document):
     spouse_a_name: Optional[str] = None
     spouse_b_name: Optional[str] = None
     spouse_a_email: Optional[EmailStr] = None
-    spouse_b_bemail: Optional[EmailStr] = None
+    spouse_b_email: Optional[EmailStr] = None
     spouse_a_icon: Optional[int] = 0
     spouse_b_icon: Optional[int] = 1
     disabled: Optional[bool] = None

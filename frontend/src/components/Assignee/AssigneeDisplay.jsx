@@ -25,15 +25,13 @@ export default function AssigneeDisplay({ assignee, user }) {
   const spouseBIcon = spouse_icons[user?.spouse_b_icon] || MdFace;
   const icon = isSpouseA ? spouseAIcon : spouseBIcon;
 
-  const spouseBColor = useColorModeValue("#3e3234", "#cb99ab");
-
   return (
     <div style={{ display: "flex", gap: "4px" }}>
       <Icon
         rounded={"full"}
-        backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
+        backgroundColor={"#bbbbbb88"}
         as={icon}
-        color={isSpouseA ? "white" : spouseBColor}
+        color={isSpouseA ? "black" : "white"}
         boxSize={6}
       />
     </div>
