@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     ]
     PROJECT_NAME: str = "JAY 2Door"
     JAY2DOOR_MONGODB_URI: str = config("JAY2DOOR_MONGODB_URI", cast=str)
+    BREVO_API_KEY: str = config("BREVO_API_KEY", cast=str)
     
 
     class Config:

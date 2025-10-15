@@ -12,7 +12,7 @@ import {
   Code,
   Icon,
 } from "@chakra-ui/react";
-import { MdDeleteOutline, MdOutlineCreate } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineCreate, MdOutlineMailOutline } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
@@ -55,6 +55,34 @@ export const TodoDetail = () => {
     fetchTodo();
     isMounted.current = true;
   }, [todoId]);
+
+  const sendMail = async () => {
+    setLoading(true);
+    try {
+      await axiosInstance.post("/email/send", {
+        to: user.email,
+        subject: `Todo: ${todo.title}`,
+        body: `Here are the details of your todo:\n\n${todo.description}`,
+      });
+
+      toast({
+        title: "Email sent successfully",
+        status: "success",
+        isClosable: true,
+        duration: 2000,
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Failed to send email",
+        status: "error",
+        isClosable: true,
+        duration: 2000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const deleteTodo = () => {
     setLoading(true);
@@ -153,6 +181,18 @@ export const TodoDetail = () => {
             user={user}
             onSuccess={fetchTodo}
             width="100%"
+          />
+        </Box>
+        <Box flex="2">
+          <IconButton
+            isLoading={loading}
+            aria-label="Delete Todo"
+            icon={<MdOutlineMailOutline />}
+            color="black.200"
+            width="100%"
+            variant="solid"
+            onClick={sendMail}
+            borderRadius="md"
           />
         </Box>
         <Box flex="2">
