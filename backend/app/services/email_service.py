@@ -1,35 +1,29 @@
-# app/services/email_service.py
-import httpx
 import os
-from app.schemas.user_schema import UserAuth
-from app.schemas.email_schema import EmailOut
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
+from app.core.config import settings
 
-BREVO_API_KEY = os.getenv("BREVO_API_KEY")
-BREVO_API_URL = "https://api.sendinblue.com/v3/smtp/email"
 
 class EmailService:
-
     @staticmethod
-    async def send_email(data: UserAuth) -> EmailOut:
-        """
-        Sends an email using Brevo (Sendinblue) API.
-        """
-        payload = {
-            "sender": {"name": "Todo App", "email": "no-reply@todoapp.com"},
-            "to": [{"email": data.email}],
-            "subject": getattr(data, "subject", "Notification from Todo App"),
-            "textContent": getattr(data, "body", ""),
-        }
+    async def send_email(data):
+        configuration = sib_api_v3_sdk.Configuration()
+        configuration.api_key['api-key'] = settings.BREVO_API_KEY
 
-        headers = {
-            "api-key": BREVO_API_KEY,
-            "Content-Type": "application/json"
-        }
+        api_instance = sib_api_v3_sdk.TransactionalEmailsApi(
+            sib_api_v3_sdk.ApiClient(configuration)
+        )
 
-        async with httpx.AsyncClient() as client:
-            response = await client.post(BREVO_API_URL, json=payload, headers=headers)
+        send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
+            to=[{"email": data.to}],
+            sender={"name": "JayTwoDoor", "email": "owlkikiwood@gmail.com"},
+            subject=data.subject,
+            text_content=data.body,
+        )
 
-        if response.status_code >= 400:
-            raise RuntimeError(f"Failed to send email: {response.text}")
-
-        return EmailOut(message="Email sent successfully", email=data.email)
+        try:
+            api_response = api_instance.send_transac_email(send_smtp_email)
+            print(f"Email sent successfully: {api_response}")
+            return {"message": "Email sent successfully", "email": data.to}
+        except ApiException as e:
+            raise RuntimeError(f"Failed to send email: {e}")
