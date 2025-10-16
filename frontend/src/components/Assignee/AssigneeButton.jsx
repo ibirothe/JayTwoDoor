@@ -1,4 +1,4 @@
-import { Icon, useColorModeValue } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from "react-icons/md";
 
 const spouse_icons = {

@@ -5,6 +5,7 @@ export default function ThemeButton() {
   const { colorMode, toggleColorMode } = useColorMode()
   return (
     <Button
+    size={{base:"sm", md:"md"}}
     aria-label="Toggle Color Mode"
     onClick={toggleColorMode}
     _focus={{ boxShadow: 'none' }}

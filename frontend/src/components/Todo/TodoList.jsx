@@ -13,7 +13,6 @@ import axiosInstance from "../../services/axios";
 import { AddUpdateTodoModal } from "./AddUpdateTodoModal";
 import { TodoCard } from "./TodoCard";
 import { AuthContext } from "../../context/JWTAuthContext";
-import { sendMail } from "../../services/sendMail";
 
 export const TodoList = () => {
   const { user } = useContext(AuthContext);

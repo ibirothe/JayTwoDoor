@@ -36,7 +36,7 @@ export const LandingHero = () => {
       px={{ base: 4, md: 0 }}
       minH="95vh"
       spacing={{ base: 0, md: 0 }}
-      backgroundSize="contain"
+      backgroundSize="cover"
       backgroundRepeat="repeat-x"
       backgroundImage={`url(${siteBgLight})`}
       backgroundPosition={`${offset}px center`}

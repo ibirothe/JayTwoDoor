@@ -41,14 +41,15 @@ export const NavBar = () => {
             </Text>
         </Flex>
 
-        <Stack direction="row" align="center" spacing={4}>
+        <Stack direction="row" align="center" spacing={2}>
             <UserPropertyModal/>
-            <ThemeButton size="lg" />
+            <ThemeButton />
             <Button onClick={logout}
             backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
             textColor={"#ffffffff"}
             variant="outline"
-            rounded="full">
+            rounded="full"
+            size={{base:"sm", md:"md"}}>
             Logout
             </Button>
         </Stack>
