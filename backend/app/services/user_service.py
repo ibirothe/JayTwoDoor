@@ -1,7 +1,7 @@
 from typing import Optional
 from uuid import UUID
 from fastapi import HTTPException, status
-from app.schemas.user_schema import UserAuth
+from app.schemas.user_schema import UserAuth, UserUpdate
 from app.models.user_model import User
 from app.core.security import get_password, verify_password
 
@@ -87,4 +87,33 @@ class UserService:
             Optional[User]: User if found, else None.
         """
         user = await User.find_one(User.user_id == id)
+        return user
+
+    @staticmethod
+    async def update_user(user_id: UUID, data: UserUpdate) -> User:
+        """
+        Update the fields of a user.
+
+        Args:
+            user_id (UUID): The user ID to update.
+            data (UserUpdate): Fields to update.
+
+        Returns:
+            User: Updated user instance.
+
+        Raises:
+            HTTPException: If the user is not found.
+        """
+        user = await User.find_one(User.user_id == user_id)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+
+        update_data = data.dict(exclude_unset=True)  # Only update fields that are sent
+        for key, value in update_data.items():
+            setattr(user, key, value)
+
+        await user.save()
         return user

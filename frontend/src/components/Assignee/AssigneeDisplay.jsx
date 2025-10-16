@@ -1,4 +1,4 @@
-import { Icon, useColorModeValue } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import {
   MdFace,
   MdFace2,
@@ -21,20 +21,20 @@ export default function AssigneeDisplay({ assignee, user }) {
   const numericAssignee = Number(assignee);
   const isSpouseA = numericAssignee === 0;
 
-  const spouseAIcon = spouse_icons[user?.spouse_a_icon] || MdFace;
-  const spouseBIcon = spouse_icons[user?.spouse_b_icon] || MdFace;
-  const icon = isSpouseA ? spouseAIcon : spouseBIcon;
+  const spouseAIcon = spouse_icons[Number(user?.spouse_a_icon)] || MdFace;
+  const spouseBIcon = spouse_icons[Number(user?.spouse_b_icon)] || MdFace;
 
-  const spouseBColor = useColorModeValue("#3e3234", "#cb99ab");
+  const icon = isSpouseA ? spouseAIcon : spouseBIcon;
 
   return (
     <div style={{ display: "flex", gap: "4px" }}>
       <Icon
-        rounded={"full"}
-        backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
+        rounded={"lg"}
+        backgroundColor={"#bbbbbb88"}
         as={icon}
-        color={isSpouseA ? "white" : spouseBColor}
-        boxSize={6}
+        color={isSpouseA ? "black" : "white"}
+        boxSize={8}
+        p={1}
       />
     </div>
   );

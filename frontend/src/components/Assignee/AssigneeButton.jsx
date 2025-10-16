@@ -19,18 +19,15 @@ export default function AssigneeButton({ value , onChange, user }) {
   const isSpouseA = assignee === 0;
   const icon = isSpouseA ? spouseAIcon : spouseBIcon;
 
-  const spouseBColor = useColorModeValue("#3e3234", "#cb99ab");
-
   return (
     <Icon
       as={icon}
-      color={isSpouseA ? "white" : spouseBColor}
-      boxSize={6}
+      color={isSpouseA ? "black" : "white"}
+      boxSize={8}
       rounded={"full"}
-      backgroundColor={useColorModeValue("#958867ff", "#5c5563ff")}
+      backgroundColor={"#bbbbbb88"}
       outline={"2"}
       ml={2}
-      mt={0}
       cursor="pointer"
       onClick={() => onChange(isSpouseA ? 1 : 0)}
       _hover={{ opacity: 0.8, transform: "scale(1.3)" }}

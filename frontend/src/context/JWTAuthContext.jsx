@@ -32,6 +32,10 @@ const handlers = {
     isAuthenticated: false,
     user: null,
   }),
+  UPDATE_USER: (state, { payload }) => ({
+    ...state,
+    user: { ...state.user, ...payload },
+  }),
 };
 
 const reducer = (state, action) =>

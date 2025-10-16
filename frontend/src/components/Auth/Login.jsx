@@ -11,7 +11,6 @@ import {
   useToast,
   Text
 } from "@chakra-ui/react";
-import { ThemeToggler } from "../Theme/ThemeToggler";
 import { useAuth } from "../../hooks/useAuth";
 import loginBgLight from '../../assets/flex_bg_light.png';
 import loginBgDark from '../../assets/flex_bg_dark.png';
@@ -64,10 +63,6 @@ export const Login = () => {
         rounded={12}
         width="sm"
       >
-        {/* Toggler in top right */}
-        <Flex width="100%" justify="flex-end" align="center" mb={6}>
-            <ThemeToggler showLabel={true} />
-        </Flex>
 
         <Heading mb={0}>LOGIN</Heading>
         <Text mb={2}>J A Y 2 D o o r</Text>
