@@ -162,7 +162,7 @@ const iconItems = [
                   defaultValue="0"
                   render={({ field }) => (
                     <RadioGroup {...field}>
-                      <HStack gap="6">
+                      <HStack gap="4">
                         {iconItems.map((item) => (
                           <Radio key={item.value} value={item.value} size={"md"}>
                             {item.icon}
@@ -212,7 +212,7 @@ const iconItems = [
                   defaultValue="1"
                   render={({ field }) => (
                     <RadioGroup {...field}>
-                      <HStack gap="6">
+                      <HStack gap="4">
                         {iconItems.map((item) => (
                           <Radio key={item.value} value={item.value} size={"md"}> 
                             {item.icon}
