@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Button,
   Stack,
@@ -6,12 +7,28 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import siteBgLight from "../../assets/landing_bg.png";
 import landingBgLight from "../../assets/landing_light.png";
 import landingBgReflectionLight from "../../assets/landing_reflection_light.png";
 import MirrorText from "../Text/MirrorText";
 
 export const LandingHero = () => {
   const navigate = useNavigate();
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    let frameId;
+    const speed = 0.04;
+
+    const animate = () => {
+      setOffset((prev) => (prev + speed) % 1000);
+      frameId = requestAnimationFrame(animate);
+    };
+
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
   return (
     <Stack
       align="center"
@@ -19,7 +36,10 @@ export const LandingHero = () => {
       px={{ base: 4, md: 0 }}
       minH="95vh"
       spacing={{ base: 0, md: 0 }}
-      background="linear-gradient(90deg, #1e191aff, #251a28ff)"
+      backgroundSize="contain"
+      backgroundRepeat="repeat-x"
+      backgroundImage={`url(${siteBgLight})`}
+      backgroundPosition={`${offset}px center`}
     >
       {/* Hero Image */}
       <Flex
@@ -67,9 +87,9 @@ export const LandingHero = () => {
         backgroundImage={`url(${landingBgReflectionLight})`}
       >
         <Text ml={6} mr={6} align="center" color="white" fontSize={{ base: "sm", md: "md" }}>
-          <b>Jay2Door</b> makes it easier for couples to share the <b>mental load</b>. 
+          <b>Jay2Door</b> makes it easier for couples to share the <b>mental load</b>.
           It’s a todo app built to help spouses manage tasks <b>together</b>.
-          This service is dedicated to my wonderful wife - <b>grateful</b> for having her in my 
+          This service is dedicated to my wonderful wife — <b>grateful</b> for having her in my
           life, and for inspiring me every day.
         </Text>
       </Flex>

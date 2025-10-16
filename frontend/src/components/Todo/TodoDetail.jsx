@@ -13,14 +13,14 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { MdDeleteOutline, MdOutlineCreate, MdOutlineMailOutline } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
 import { AddUpdateTodoModal } from "./AddUpdateTodoModal";
-import { useContext } from "react";
 import { AuthContext } from "../../context/JWTAuthContext";
-import detailBgLight from '../../assets/flex_bg_light.png';
-import detailBgDark from '../../assets/flex_bg_dark.png';
+import detailBgLight from "../../assets/flex_bg_light.png";
+import detailBgDark from "../../assets/flex_bg_dark.png";
+import { sendMail } from "../../services/sendMail";
 
 export const TodoDetail = () => {
   const [todo, setTodo] = useState({});
@@ -37,9 +37,9 @@ export const TodoDetail = () => {
   );
 
   const descriptionBg = useColorModeValue(
-        "linear-gradient(90deg, #f6d8baff, #fae1e1ff)",
-        "linear-gradient(90deg, #1e191aff, #251a28ff)"
-      );
+    "linear-gradient(90deg, #f6d8baff, #fae1e1ff)",
+    "linear-gradient(90deg, #1e191aff, #251a28ff)"
+  );
 
   const fetchTodo = () => {
     setLoading(true);
@@ -56,32 +56,8 @@ export const TodoDetail = () => {
     isMounted.current = true;
   }, [todoId]);
 
-  const sendMail = async () => {
-    setLoading(true);
-    try {
-      await axiosInstance.post("/email/send", {
-        to: user.email,
-        subject: `Todo: ${todo.title}`,
-        body: `Here are the details of your todo:\n\n${todo.description}`,
-      });
-
-      toast({
-        title: "Email sent successfully",
-        status: "success",
-        isClosable: true,
-        duration: 2000,
-      });
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: "Failed to send email",
-        status: "error",
-        isClosable: true,
-        duration: 2000,
-      });
-    } finally {
-      setLoading(false);
-    }
+  const handleSendMail = async () => {
+    await sendMail({ todo, user, setLoading, toast });
   };
 
   const deleteTodo = () => {
@@ -151,7 +127,7 @@ export const TodoDetail = () => {
 
       {/* Create time */}
       <Box display="flex" alignItems="center" gap={1} mt={2}>
-        <Icon as={MdOutlineCreate} boxSize={4} color="grey.200"/>
+        <Icon as={MdOutlineCreate} boxSize={4} color="grey.200" />
         <Code variant="outline" fontSize="sm" color="grey.200">
           {new Date(todo.created_at).toLocaleString("en-US", {
             year: "numeric",
@@ -165,10 +141,12 @@ export const TodoDetail = () => {
 
       {/* Todo description */}
       <Box bg={descriptionBg} mt={3} p={3} rounded="lg">
-        <Text height={"350px"} whiteSpace="pre-line">{todo.description}</Text>
+        <Text height={"350px"} whiteSpace="pre-line">
+          {todo.description}
+        </Text>
       </Box>
 
-      {/* Edit and Delete buttons */}
+      {/* Edit, Mail, and Delete buttons */}
       <Flex mt={3} width="100%" gap={2}>
         <Box flex="8">
           <AddUpdateTodoModal
@@ -186,12 +164,12 @@ export const TodoDetail = () => {
         <Box flex="2">
           <IconButton
             isLoading={loading}
-            aria-label="Delete Todo"
+            aria-label="Send Email Reminder"
             icon={<MdOutlineMailOutline />}
             color="black.200"
             width="100%"
             variant="solid"
-            onClick={sendMail}
+            onClick={handleSendMail}
             borderRadius="md"
           />
         </Box>
