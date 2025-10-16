@@ -45,12 +45,12 @@ export const UserPropertyModal = ({ onSuccess = () => {}, ...rest }) => {
   const modalBgImage = useColorModeValue(editBgLight, editBgDark);
 
 const iconItems = [
-  { value: "0", icon: <Box as={MdFace} fontSize={{ base: "24px", md: "32px", lg: "40px" }} /> },
-  { value: "1", icon: <Box as={MdFace2} fontSize={{ base: "24px", md: "32px", lg: "40px" }} /> },
-  { value: "2", icon: <Box as={MdFace3} fontSize={{ base: "24px", md: "32px", lg: "40px" }} /> },
-  { value: "3", icon: <Box as={MdFace4} fontSize={{ base: "24px", md: "32px", lg: "40px" }} /> },
-  { value: "4", icon: <Box as={MdFace5} fontSize={{ base: "24px", md: "32px", lg: "40px" }} /> },
-  { value: "5", icon: <Box as={MdFace6} fontSize={{ base: "24px", md: "32px", lg: "40px" }} /> },
+  { value: "0", icon: <Box as={MdFace} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+  { value: "1", icon: <Box as={MdFace2} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+  { value: "2", icon: <Box as={MdFace3} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+  { value: "3", icon: <Box as={MdFace4} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+  { value: "4", icon: <Box as={MdFace5} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+  { value: "5", icon: <Box as={MdFace6} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
 ];
 
   const {
