@@ -1,7 +1,7 @@
 export const buildTodoEmail = (todo, user, assignee) => {
   const assigneeName = assignee === "a" ? user.spouse_a_name : user.spouse_b_name;
   const serviceUrl = "https://jay-two-door.vercel.app";
-  const imageUrl = "https://github.com/ibirothe/JayTwoDoor/tree/main/frontend/src/assets/email.png";
+  const imageUrl = "https://github.com/ibirothe/JayTwoDoor/blob/main/frontend/src/assets/email.png?raw=true";
 
   const subject = `Reminder: ${todo.title}`;
 
