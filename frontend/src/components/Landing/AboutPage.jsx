@@ -167,7 +167,7 @@ export const About = () => {
           variant="outline"
           rounded="full"
           size={{ base: "md", md: "lg" }}
-          onClick={() => navigate(`/`, { replace: true })}
+          onClick={() => navigate(`/home`, { replace: true })}
         >
           Back
         </Button>
