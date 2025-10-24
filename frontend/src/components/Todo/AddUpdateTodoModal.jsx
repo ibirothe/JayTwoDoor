@@ -49,6 +49,7 @@ export const AddUpdateTodoModal = ({
       title: "",
       description: "",
       status: false,
+      urgent: false,
       assignee: 0,
     },
   });
@@ -183,9 +184,28 @@ export const AddUpdateTodoModal = ({
                       <Switch
                         onChange={(e) => field.onChange(e.target.checked)}
                         isChecked={field.value}
-                        id="id-done"
+                        id="is-done"
                         size="md"
                         colorScheme="purple"
+                      />
+                    </FormControl>
+                  )}
+                />
+
+                <Controller
+                  control={control}
+                  name="urgent"
+                  render={({ field }) => (
+                    <FormControl ml={6} mt={6} display="flex" alignItems="center">
+                      <FormLabel htmlFor="is-urgent" mb="0">
+                        Urgent
+                      </FormLabel>
+                      <Switch
+                        id="is-urgent"
+                        size="md"
+                        colorScheme="red"
+                        isChecked={!!field.value}
+                        onChange={(e) => field.onChange(e.target.checked)}
                       />
                     </FormControl>
                   )}

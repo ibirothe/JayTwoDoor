@@ -53,6 +53,8 @@ const iconItems = [
   { value: "5", icon: <Box as={MdFace6} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
 ];
 
+const timeZones = Intl.supportedValuesOf("timeZone");
+
   const {
     handleSubmit,
     control,
@@ -70,6 +72,7 @@ const iconItems = [
         spouse_b_name: user.spouse_b_name || "",
         spouse_b_email: user.spouse_b_email || "",
         spouse_b_icon: String(user.spouse_b_icon || 1),
+        zone: String(user.zone || Intl.DateTimeFormat().resolvedOptions().timeZone),
       });
     }
   }, [user, reset]);
@@ -224,6 +227,31 @@ const iconItems = [
                 />
                 <FormErrorMessage>{errors.spouse_b_icon?.message}</FormErrorMessage>
               </FormControl>
+              {/* Time Zone Selector */}
+                <FormControl isInvalid={errors.zone} mt={4} mb={4}>
+                  <FormLabel>Time Zone</FormLabel>
+                  <Controller
+                    name="zone"
+                    control={control}
+                    defaultValue={user.zone || Intl.DateTimeFormat().resolvedOptions().timeZone}
+                    render={({ field }) => (
+                      <Input
+                        as="select"
+                        {...field}
+                        background={inputBg}
+                        size="sm"
+                        required
+                      >
+                        {timeZones.map((tz) => (
+                          <option key={tz} value={tz}>
+                            {tz}
+                          </option>
+                        ))}
+                      </Input>
+                    )}
+                  />
+                  <FormErrorMessage>{errors.zone?.message}</FormErrorMessage>
+                </FormControl>
             </ModalBody>
 
             <ModalFooter background={headerBg}>

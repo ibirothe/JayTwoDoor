@@ -11,7 +11,9 @@ import {
   CloseButton,
   Code,
   Icon,
+  HStack,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 import { MdDeleteOutline, MdOutlineCreate, MdOutlineMailOutline } from "react-icons/md";
 import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,6 +23,7 @@ import { AuthContext } from "../../context/JWTAuthContext";
 import detailBgLight from "../../assets/flex_bg_light.png";
 import detailBgDark from "../../assets/flex_bg_dark.png";
 import { sendMail } from "../../services/sendMail";
+import AssigneeDisplay from "../Assignee/AssigneeDisplay";
 
 export const TodoDetail = () => {
   const [todo, setTodo] = useState({});
@@ -114,9 +117,10 @@ export const TodoDetail = () => {
     >
       {/* Title and Back button */}
       <Flex justify="space-between" align="center">
-        <Text fontSize={22} fontWeight="bold">
-          {todo.title}
-        </Text>
+        <HStack>
+          <AssigneeDisplay assignee={todo.assignee} user={user}/>
+          <Text fontSize={22} fontWeight="bold" p={todo.urgent&& "xl"} rounded={todo.urgent&& "lg"} backgroundColor={todo.urgent&& "#ff004088"} textColor={todo.urgent&& "#f1ccb3ff"}>{todo.urgent&& "!  "}{todo.title}{todo.urgent&& "  !"}</Text>
+        </HStack>
         <CloseButton
           aria-label="Back"
           variant="outline"
@@ -129,13 +133,15 @@ export const TodoDetail = () => {
       <Box display="flex" alignItems="center" gap={1} mt={2}>
         <Icon as={MdOutlineCreate} boxSize={4} color="grey.200" />
         <Code variant="outline" fontSize="sm" color="grey.200">
-          {new Date(todo.created_at).toLocaleString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {todo.created_at ? (
+            (() => {
+              const zone = user.zone || "Europe/Berlin";
+              const dt = DateTime.fromISO(todo.created_at, { zone: "utc" }).setZone(zone);
+              return `${dt.toFormat("MMMM dd, yyyy 'at' HH:mm")} (${zone})`;
+            })()
+          ) : (
+            "Unknown time"
+          )}
         </Code>
       </Box>
 
