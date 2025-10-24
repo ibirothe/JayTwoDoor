@@ -11,6 +11,7 @@ import {
   CloseButton,
   Code,
   Icon,
+  HStack,
 } from "@chakra-ui/react";
 import { MdDeleteOutline, MdOutlineCreate, MdOutlineMailOutline } from "react-icons/md";
 import { useEffect, useRef, useState, useContext } from "react";
@@ -21,6 +22,7 @@ import { AuthContext } from "../../context/JWTAuthContext";
 import detailBgLight from "../../assets/flex_bg_light.png";
 import detailBgDark from "../../assets/flex_bg_dark.png";
 import { sendMail } from "../../services/sendMail";
+import AssigneeDisplay from "../Assignee/AssigneeDisplay";
 
 export const TodoDetail = () => {
   const [todo, setTodo] = useState({});
@@ -114,9 +116,12 @@ export const TodoDetail = () => {
     >
       {/* Title and Back button */}
       <Flex justify="space-between" align="center">
-        <Text fontSize={22} fontWeight="bold">
-          {todo.title}
-        </Text>
+        <HStack>
+          <AssigneeDisplay assignee={todo.assignee} user={user}/>
+          <Text fontSize={22} fontWeight="bold">
+            {todo.title}
+          </Text>
+        </HStack>
         <CloseButton
           aria-label="Back"
           variant="outline"
