@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import { Flex, Spinner } from "@chakra-ui/react";
-
 import { AuthProvider, AuthConsumer } from "./context/JWTAuthContext";
 import { PublicRoute } from "./components/Auth/PublicRoute";
 import { Authenticated } from "./components/Auth/Authenticated";
@@ -36,8 +35,8 @@ function App() {
                 <Route path="/about" element={<PublicRoute><OutNavBar/><About/><Footer /></PublicRoute>} />
                 <Route path="/login" element={<PublicRoute><Login /><Footer /></PublicRoute>} />
                 <Route path="/register" element={<PublicRoute><Register /><Footer /></PublicRoute>} />
-
-                <Route element={<NavBar />}>
+                
+                <Route path="/" element={<NavBar />}>
                   <Route
                     index
                     element={
@@ -57,8 +56,8 @@ function App() {
                     }
                   />
                 </Route>
-
-                <Route path="*" element={<Navigate to="/home" />} />
+                
+                <Route path="*" element={<Navigate to="/home" replace />} />
               </Routes>
             )
           }
