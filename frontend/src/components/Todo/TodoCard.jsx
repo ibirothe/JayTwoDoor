@@ -35,7 +35,7 @@ export const TodoCard = ({ todo, user}) => {
       }}
       onClick={() => navigate(`/${todo.todo_id}`, { replace: true })}
     >
-      <Text fontWeight="bold" textColor="white">{todo.title}</Text>
+      <Text fontWeight="bold" p={todo.urgent&& "xl"} rounded={todo.urgent&& "lg"} backgroundColor={todo.urgent&& "#ff004088"} textColor={todo.urgent? "#f1ccb3ff" : "white"}>{todo.urgent&& "!  "}{todo.title}{todo.urgent&& "  !"}</Text>
       <Box display="flex" alignItems="center">
         <Badge rounded="full" colorScheme={todo.status ? "green" : "purple"} mr={2}>
           {todo.status ? "Complete" : "Pending"}

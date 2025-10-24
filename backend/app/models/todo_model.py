@@ -18,6 +18,7 @@ class Todo(Document):
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     assignee: int = Field(default_factory=0)
     owner: Link[User]
+    urgent: bool = False
     
     def __repr__(self) -> str:
         return f"<Todo {self.title}>"

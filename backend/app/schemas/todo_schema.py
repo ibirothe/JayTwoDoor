@@ -10,6 +10,7 @@ class TodoCreate(BaseModel):
     title: str = Field(..., title="Title", max_length=55, min_length=1)
     description: str = Field(..., title="Description", max_length=755, min_length=1)
     status: Optional[bool] = False
+    urgent: Optional[bool] = False
     assignee: Optional[int] = 0
     
     
@@ -20,6 +21,7 @@ class TodoUpdate(BaseModel):
     title: Optional[str] = Field(..., title="Title", max_length=55, min_length=1)
     description: Optional[str] = Field(..., title="Description", max_length=755, min_length=1)
     status: Optional[bool] = False
+    urgent: Optional[bool] = False
     assignee: Optional[int]
     
 
@@ -29,6 +31,7 @@ class TodoOut(BaseModel):
     """
     todo_id: UUID
     status: bool
+    urgent: bool
     title: str
     description: str
     created_at: datetime
