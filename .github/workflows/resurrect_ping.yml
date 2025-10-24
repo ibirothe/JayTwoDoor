@@ -1,0 +1,14 @@
+name: Render Resurrection Ping
+
+on:
+  schedule:
+    - cron: '*/14 * * * *'
+  workflow_dispatch:
+
+jobs:
+  curl-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Render App
+        run: curl -I https://jaytwodoor.onrender.com/
