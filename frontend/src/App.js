@@ -32,16 +32,14 @@ function App() {
               </Flex>
             ) : (
               <Routes>
-                {/* Public pages */}
                 <Route path="/home" element={<PublicRoute><OutNavBar/><LandingHero/><Footer /></PublicRoute>} />
                 <Route path="/about" element={<PublicRoute><OutNavBar/><About/><Footer /></PublicRoute>} />
                 <Route path="/login" element={<PublicRoute><Login /><Footer /></PublicRoute>} />
                 <Route path="/register" element={<PublicRoute><Register /><Footer /></PublicRoute>} />
 
-                {/* Authenticated pages */}
-                <Route path="/" element={<NavBar />}>
+                <Route element={<NavBar />}>
                   <Route
-                    path="/"
+                    index
                     element={
                       <Authenticated>
                         <TodoList />
@@ -50,7 +48,7 @@ function App() {
                     }
                   />
                   <Route
-                    path="/:todoId"
+                    path=":todoId"
                     element={
                       <Authenticated>
                         <TodoDetail />
@@ -60,7 +58,6 @@ function App() {
                   />
                 </Route>
 
-                {/* Fallback */}
                 <Route path="*" element={<Navigate to="/home" />} />
               </Routes>
             )
