@@ -62,6 +62,7 @@ function App() {
 
                 {/* Fallback */}
                 <Route path="/" element={<PublicRoute><OutNavBar/><LandingHero/><Footer /></PublicRoute>} />
+                <Route path="" element={<PublicRoute><OutNavBar/><LandingHero/><Footer /></PublicRoute>} />
               </Routes>
             )
           }
