@@ -16,7 +16,7 @@ class EmailService:
 
         send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
             to=[{"email": data.to}],
-            sender={"name": "JayTwoDoor", "email": "owlkikiwood@gmail.com"},
+            sender={"name": "JayTwoDoor", "email": "reminder@jaytwodoor.com"},
             subject=data.subject,
             text_content=data.body,
         )
