@@ -9,6 +9,7 @@ import {
   FormErrorMessage,
   Button,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import { ThemeToggler } from "../Theme/ThemeToggler";
 import axiosInstance from "../../services/axios";
@@ -50,6 +51,7 @@ export const Register = () => {
       height="95vh"
       align="center"
       justify="center"
+      backgroundSize="cover"
       background={useColorModeValue(
         "linear-gradient(90deg, #f6d8baff, #fae1e1ff)",
         "linear-gradient(90deg, #1e191aff, #251a28ff)"
@@ -62,6 +64,9 @@ export const Register = () => {
                   `url(${loginBgLight})`,
                   `url(${loginBgDark})`
                 )}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
         p={10}
         rounded={12}
         width="sm"
@@ -71,7 +76,8 @@ export const Register = () => {
             <ThemeToggler showLabel={true} />
         </Flex>
 
-        <Heading mb={2}>Create Account</Heading>
+        <Heading mb={0} align="center">CREATE ACCOUNT</Heading>
+        <Text mb={2}>J A Y 2 D o o r</Text>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           {/* Username field */}

@@ -1,5 +1,12 @@
 import { Icon } from "@chakra-ui/react";
-import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from "react-icons/md";
+import {
+  MdFace,
+  MdFace2,
+  MdFace3,
+  MdFace4,
+  MdFace5,
+  MdFace6,
+} from "react-icons/md";
 
 const spouse_icons = {
   0: MdFace,
@@ -22,13 +29,15 @@ export default function AssigneeButton({ value , onChange, user }) {
   return (
     <Icon
       as={icon}
-      color={isSpouseA ? "white" : "#958867ff"}
-      boxSize={6}
+      color={isSpouseA ? "black" : "white"}
+      boxSize={8}
+      rounded={"full"}
+      backgroundColor={"#bbbbbb88"}
+      outline={"2"}
       ml={2}
-      mt={0}
       cursor="pointer"
       onClick={() => onChange(isSpouseA ? 1 : 0)}
-      _hover={{ opacity: 0.8, transform: "scale(1.1)" }}
+      _hover={{ opacity: 0.8, transform: "scale(1.3)" }}
       transition="all 0.2s ease-in-out"
     />
   );

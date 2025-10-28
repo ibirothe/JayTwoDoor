@@ -11,16 +11,19 @@ import {
   CloseButton,
   Code,
   Icon,
+  HStack,
 } from "@chakra-ui/react";
-import { MdDeleteOutline, MdOutlineCreate } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
+import { DateTime } from "luxon";
+import { MdDeleteOutline, MdOutlineCreate, MdOutlineMailOutline } from "react-icons/md";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
 import { AddUpdateTodoModal } from "./AddUpdateTodoModal";
-import { useContext } from "react";
 import { AuthContext } from "../../context/JWTAuthContext";
-import detailBgLight from '../../assets/flex_bg_light.png';
-import detailBgDark from '../../assets/flex_bg_dark.png';
+import detailBgLight from "../../assets/flex_bg_light.png";
+import detailBgDark from "../../assets/flex_bg_dark.png";
+import { sendMail } from "../../services/sendMail";
+import AssigneeDisplay from "../Assignee/AssigneeDisplay";
 
 export const TodoDetail = () => {
   const [todo, setTodo] = useState({});
@@ -37,9 +40,9 @@ export const TodoDetail = () => {
   );
 
   const descriptionBg = useColorModeValue(
-        "linear-gradient(90deg, #f6d8baff, #fae1e1ff)",
-        "linear-gradient(90deg, #1e191aff, #251a28ff)"
-      );
+    "linear-gradient(90deg, #f6d8baff, #fae1e1ff)",
+    "linear-gradient(90deg, #1e191aff, #251a28ff)"
+  );
 
   const fetchTodo = () => {
     setLoading(true);
@@ -55,6 +58,10 @@ export const TodoDetail = () => {
     fetchTodo();
     isMounted.current = true;
   }, [todoId]);
+
+  const handleSendMail = async () => {
+    await sendMail({ todo, user, setLoading, toast });
+  };
 
   const deleteTodo = () => {
     setLoading(true);
@@ -110,9 +117,10 @@ export const TodoDetail = () => {
     >
       {/* Title and Back button */}
       <Flex justify="space-between" align="center">
-        <Text fontSize={22} fontWeight="bold">
-          {todo.title}
-        </Text>
+        <HStack>
+          <AssigneeDisplay assignee={todo.assignee} user={user}/>
+          <Text fontSize={22} fontWeight="bold" p={todo.urgent&& "xl"} rounded={todo.urgent&& "lg"} backgroundColor={todo.urgent&& "#ff004088"} textColor={todo.urgent&& "#f1ccb3ff"}>{todo.urgent&& "!  "}{todo.title}{todo.urgent&& "  !"}</Text>
+        </HStack>
         <CloseButton
           aria-label="Back"
           variant="outline"
@@ -123,24 +131,28 @@ export const TodoDetail = () => {
 
       {/* Create time */}
       <Box display="flex" alignItems="center" gap={1} mt={2}>
-        <Icon as={MdOutlineCreate} boxSize={4} color="grey.200"/>
+        <Icon as={MdOutlineCreate} boxSize={4} color="grey.200" />
         <Code variant="outline" fontSize="sm" color="grey.200">
-          {new Date(todo.created_at).toLocaleString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {todo.created_at ? (
+            (() => {
+              const zone = user.zone || "Europe/Berlin";
+              const dt = DateTime.fromISO(todo.created_at, { zone: "utc" }).setZone(zone);
+              return `${dt.toFormat("MMMM dd, yyyy 'at' HH:mm")} (${zone})`;
+            })()
+          ) : (
+            "Unknown time"
+          )}
         </Code>
       </Box>
 
       {/* Todo description */}
       <Box bg={descriptionBg} mt={3} p={3} rounded="lg">
-        <Text height={"350px"} whiteSpace="pre-line">{todo.description}</Text>
+        <Text height={"350px"} whiteSpace="pre-line">
+          {todo.description}
+        </Text>
       </Box>
 
-      {/* Edit and Delete buttons */}
+      {/* Edit, Mail, and Delete buttons */}
       <Flex mt={3} width="100%" gap={2}>
         <Box flex="8">
           <AddUpdateTodoModal
@@ -153,6 +165,18 @@ export const TodoDetail = () => {
             user={user}
             onSuccess={fetchTodo}
             width="100%"
+          />
+        </Box>
+        <Box flex="2">
+          <IconButton
+            isLoading={loading}
+            aria-label="Send Email Reminder"
+            icon={<MdOutlineMailOutline />}
+            color="black.200"
+            width="100%"
+            variant="solid"
+            onClick={handleSendMail}
+            borderRadius="md"
           />
         </Box>
         <Box flex="2">

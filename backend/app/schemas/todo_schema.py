@@ -11,6 +11,7 @@ class TodoCreate(BaseModel):
     description: str = Field(..., title="Description", max_length=755, min_length=1)
     status: Optional[bool] = False
     assignee: Optional[int] = 0
+    urgent: Optional[bool] = False
     
     
 class TodoUpdate(BaseModel):
@@ -21,6 +22,7 @@ class TodoUpdate(BaseModel):
     description: Optional[str] = Field(..., title="Description", max_length=755, min_length=1)
     status: Optional[bool] = False
     assignee: Optional[int]
+    urgent: Optional[bool] = False
     
 
 class TodoOut(BaseModel):
@@ -34,3 +36,4 @@ class TodoOut(BaseModel):
     created_at: datetime
     updated_at: datetime
     assignee: int
+    urgent: bool

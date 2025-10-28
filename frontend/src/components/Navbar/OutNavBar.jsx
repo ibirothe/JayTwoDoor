@@ -41,7 +41,8 @@ export const OutNavBar = () => {
             backgroundColor={"#5c5563ff"}
             textColor={"#ffffffff"}
             variant="outline"
-            rounded="full">
+            rounded="full"
+            size={{base:"sm", md:"md"}}>
             Login
             </Button>
         </Stack>

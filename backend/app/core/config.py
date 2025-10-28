@@ -13,10 +13,12 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7   # 7 days
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
         "https://jay-two-door.vercel.app",
+        "http://jaytwodoor.com",
         #"http://localhost:3000",
     ]
     PROJECT_NAME: str = "JAY 2Door"
     JAY2DOOR_MONGODB_URI: str = config("JAY2DOOR_MONGODB_URI", cast=str)
+    BREVO_API_KEY: str = config("BREVO_API_KEY", cast=str)
     
 
     class Config:

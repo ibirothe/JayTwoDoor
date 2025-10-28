@@ -22,6 +22,10 @@ const handlers = {
     isInitialized: true,
     user: payload.user,
   }),
+  UPDATE_USER: (state, { payload }) => ({
+    ...state,
+    user: { ...state.user, ...payload },
+  }),
   LOGIN: (state, { payload }) => ({
     ...state,
     isAuthenticated: true,

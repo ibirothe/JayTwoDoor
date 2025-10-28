@@ -1,5 +1,12 @@
-import { Icon } from '@chakra-ui/react';
-import { MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from 'react-icons/md';
+import { Icon } from "@chakra-ui/react";
+import {
+  MdFace,
+  MdFace2,
+  MdFace3,
+  MdFace4,
+  MdFace5,
+  MdFace6,
+} from "react-icons/md";
 
 const spouse_icons = {
   0: MdFace,
@@ -22,9 +29,12 @@ export default function AssigneeDisplay({ assignee, user }) {
   return (
     <div style={{ display: 'flex', gap: '4px' }}>
       <Icon
+        rounded={"lg"}
+        backgroundColor={"#bbbbbb88"}
         as={icon}
-        color={isSpouseA ? "white" : "#958867ff"}
-        boxSize={6}
+        color={isSpouseA ? "black" : "white"}
+        boxSize={8}
+        p={1}
       />
     </div>
   );
