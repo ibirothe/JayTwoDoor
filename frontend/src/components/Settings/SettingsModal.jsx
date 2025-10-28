@@ -19,6 +19,7 @@ import {
   useColorModeValue,
   useDisclosure,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 import { useForm, Controller } from "react-hook-form";
 import axiosInstance from "../../services/axios";
@@ -26,7 +27,15 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/JWTAuthContext";
 import editBgLight from "../../assets/edit_bg_light.png";
 import editBgDark from "../../assets/edit_bg_dark.png";
-import { MdSettings, MdFace, MdFace2, MdFace3, MdFace4, MdFace5, MdFace6 } from "react-icons/md";
+import {
+  MdSettings,
+  MdFace,
+  MdFace2,
+  MdFace3,
+  MdFace4,
+  MdFace5,
+  MdFace6,
+} from "react-icons/md";
 
 export const UserPropertyModal = ({ onSuccess = () => {}, ...rest }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,16 +53,16 @@ export const UserPropertyModal = ({ onSuccess = () => {}, ...rest }) => {
   );
   const modalBgImage = useColorModeValue(editBgLight, editBgDark);
 
-const iconItems = [
-  { value: "0", icon: <Box as={MdFace} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
-  { value: "1", icon: <Box as={MdFace2} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
-  { value: "2", icon: <Box as={MdFace3} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
-  { value: "3", icon: <Box as={MdFace4} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
-  { value: "4", icon: <Box as={MdFace5} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
-  { value: "5", icon: <Box as={MdFace6} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
-];
+  const iconItems = [
+    { value: "0", icon: <Box as={MdFace} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+    { value: "1", icon: <Box as={MdFace2} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+    { value: "2", icon: <Box as={MdFace3} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+    { value: "3", icon: <Box as={MdFace4} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+    { value: "4", icon: <Box as={MdFace5} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+    { value: "5", icon: <Box as={MdFace6} fontSize={{ base: "18px", md: "32px", lg: "40px" }} /> },
+  ];
 
-const timeZones = Intl.supportedValuesOf("timeZone");
+  const timeZones = Intl.supportedValuesOf("timeZone");
 
   const {
     handleSubmit,
@@ -64,17 +73,16 @@ const timeZones = Intl.supportedValuesOf("timeZone");
   } = useForm({ defaultValues: {} });
 
   useEffect(() => {
-    if (user) {
-      reset({
-        spouse_a_name: user.spouse_a_name || "",
-        spouse_a_email: user.spouse_a_email || "",
-        spouse_a_icon: String(user.spouse_a_icon || 0),
-        spouse_b_name: user.spouse_b_name || "",
-        spouse_b_email: user.spouse_b_email || "",
-        spouse_b_icon: String(user.spouse_b_icon || 1),
-        zone: String(user.zone || Intl.DateTimeFormat().resolvedOptions().timeZone),
-      });
-    }
+    if (!user) return; // prevent null access
+    reset({
+      spouse_a_name: user.spouse_a_name || "",
+      spouse_a_email: user.spouse_a_email || "",
+      spouse_a_icon: String(user.spouse_a_icon || 0),
+      spouse_b_name: user.spouse_b_name || "",
+      spouse_b_email: user.spouse_b_email || "",
+      spouse_b_icon: String(user.spouse_b_icon || 1),
+      zone: String(user.zone || Intl.DateTimeFormat().resolvedOptions().timeZone),
+    });
   }, [user, reset]);
 
   const onSubmit = async (values) => {
@@ -102,11 +110,14 @@ const timeZones = Intl.supportedValuesOf("timeZone");
     }
   };
 
+  // prevent rendering until user exists
+  if (!user) return null;
+
   return (
     <Box {...rest}>
       <Button
         w="100%"
-        size={{base:"sm", md:"md"}}
+        size={{ base: "sm", md: "md" }}
         onClick={onOpen}
         backgroundColor={buttonBg}
         textColor="#ffffffff"
@@ -116,7 +127,13 @@ const timeZones = Intl.supportedValuesOf("timeZone");
         <MdSettings />
       </Button>
 
-      <Modal closeOnOverlayClick={false} size="xl" onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal
+        closeOnOverlayClick={false}
+        size="xl"
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
         <ModalOverlay />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalContent>
@@ -137,9 +154,13 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                   type="text"
                   size="sm"
                   required
-                  {...register("spouse_a_name", { maxLength: { value: 100, message: "Too long" } })}
+                  {...register("spouse_a_name", {
+                    maxLength: { value: 100, message: "Too long" },
+                  })}
                 />
-                <FormErrorMessage>{errors.spouse_a_name?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.spouse_a_name?.message}
+                </FormErrorMessage>
               </FormControl>
 
               {/* User A Email */}
@@ -151,9 +172,13 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                   type="email"
                   size="sm"
                   required
-                  {...register("spouse_a_email", { maxLength: { value: 100, message: "Too long" } })}
+                  {...register("spouse_a_email", {
+                    maxLength: { value: 100, message: "Too long" },
+                  })}
                 />
-                <FormErrorMessage>{errors.spouse_a_email?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.spouse_a_email?.message}
+                </FormErrorMessage>
               </FormControl>
 
               {/* User A Icon */}
@@ -167,7 +192,7 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                     <RadioGroup {...field}>
                       <HStack gap="4">
                         {iconItems.map((item) => (
-                          <Radio key={item.value} value={item.value} size={"md"}>
+                          <Radio key={item.value} value={item.value} size="md">
                             {item.icon}
                           </Radio>
                         ))}
@@ -175,7 +200,9 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                     </RadioGroup>
                   )}
                 />
-                <FormErrorMessage>{errors.spouse_a_icon?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.spouse_a_icon?.message}
+                </FormErrorMessage>
               </FormControl>
 
               {/* User B Name */}
@@ -187,9 +214,13 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                   type="text"
                   size="sm"
                   required
-                  {...register("spouse_b_name", { maxLength: { value: 100, message: "Too long" } })}
+                  {...register("spouse_b_name", {
+                    maxLength: { value: 100, message: "Too long" },
+                  })}
                 />
-                <FormErrorMessage>{errors.spouse_b_name?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.spouse_b_name?.message}
+                </FormErrorMessage>
               </FormControl>
 
               {/* User B Email */}
@@ -201,9 +232,13 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                   type="email"
                   size="sm"
                   required
-                  {...register("spouse_b_email", { maxLength: { value: 100, message: "Too long" } })}
+                  {...register("spouse_b_email", {
+                    maxLength: { value: 100, message: "Too long" },
+                  })}
                 />
-                <FormErrorMessage>{errors.spouse_b_email?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.spouse_b_email?.message}
+                </FormErrorMessage>
               </FormControl>
 
               {/* User B Icon */}
@@ -217,7 +252,7 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                     <RadioGroup {...field}>
                       <HStack gap="4">
                         {iconItems.map((item) => (
-                          <Radio key={item.value} value={item.value} size={"md"}> 
+                          <Radio key={item.value} value={item.value} size="md">
                             {item.icon}
                           </Radio>
                         ))}
@@ -225,33 +260,32 @@ const timeZones = Intl.supportedValuesOf("timeZone");
                     </RadioGroup>
                   )}
                 />
-                <FormErrorMessage>{errors.spouse_b_icon?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.spouse_b_icon?.message}
+                </FormErrorMessage>
               </FormControl>
+
               {/* Time Zone Selector */}
-                <FormControl isInvalid={errors.zone} mt={4} mb={4}>
-                  <FormLabel>Time Zone</FormLabel>
-                  <Controller
-                    name="zone"
-                    control={control}
-                    defaultValue={user.zone || Intl.DateTimeFormat().resolvedOptions().timeZone}
-                    render={({ field }) => (
-                      <Input
-                        as="select"
-                        {...field}
-                        background={inputBg}
-                        size="sm"
-                        required
-                      >
-                        {timeZones.map((tz) => (
-                          <option key={tz} value={tz}>
-                            {tz}
-                          </option>
-                        ))}
-                      </Input>
-                    )}
-                  />
-                  <FormErrorMessage>{errors.zone?.message}</FormErrorMessage>
-                </FormControl>
+              <FormControl isInvalid={errors.zone} mt={4} mb={4}>
+                <FormLabel>Time Zone</FormLabel>
+                <Controller
+                  name="zone"
+                  control={control}
+                  defaultValue={
+                    user?.zone || Intl.DateTimeFormat().resolvedOptions().timeZone
+                  }
+                  render={({ field }) => (
+                    <Select {...field} background={inputBg} size="sm" required>
+                      {timeZones.map((tz) => (
+                        <option key={tz} value={tz}>
+                          {tz}
+                        </option>
+                      ))}
+                    </Select>
+                  )}
+                />
+                <FormErrorMessage>{errors.zone?.message}</FormErrorMessage>
+              </FormControl>
             </ModalBody>
 
             <ModalFooter background={headerBg}>
