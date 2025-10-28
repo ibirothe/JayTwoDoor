@@ -168,7 +168,7 @@ export const AddUpdateTodoModal = ({
                   {...register("description", {
                     required: "This is required field",
                     minLength: { value: 1, message: "Description must be at least 1 character" },
-                    maxLength: { value: 200, message: "Description must be at most 200 characters" },
+                    maxLength: { value: 755, message: "Description must be at most 755 characters" },
                   })}
                 />
                 <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
