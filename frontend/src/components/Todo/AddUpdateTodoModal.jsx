@@ -19,6 +19,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
+import { MdEditSquare, MdAddCircle } from "react-icons/md";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -102,7 +103,7 @@ export const AddUpdateTodoModal = ({
         variant="outline"
         rounded="full"
       >
-        {editable ? "Update 2Door" : "Add 2Door"}
+        {editable ? <MdEditSquare/> : <MdAddCircle/>}
       </Button>
 
       <Modal

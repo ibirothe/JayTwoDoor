@@ -61,7 +61,7 @@ export const Login = () => {
         backgroundRepeat="no-repeat"
         p={10}
         rounded={12}
-        width="sm"
+        width="xs"
       >
 
         <Heading mb={0}>LOGIN</Heading>

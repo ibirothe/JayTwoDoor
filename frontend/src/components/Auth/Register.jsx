@@ -69,7 +69,7 @@ export const Register = () => {
         backgroundRepeat="no-repeat"
         p={10}
         rounded={12}
-        width="sm"
+        width="xs"
       >
         {/* Toggler in top right */}
         <Flex width="100%" justify="flex-end" align="center" mb={6}>

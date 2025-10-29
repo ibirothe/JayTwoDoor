@@ -10,11 +10,10 @@ import {
   IconButton,
   CloseButton,
   Code,
-  Icon,
   HStack,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import { MdDeleteOutline, MdOutlineCreate, MdOutlineMailOutline } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineMailOutline } from "react-icons/md";
 import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../services/axios";
@@ -24,6 +23,8 @@ import detailBgLight from "../../assets/flex_bg_light.png";
 import detailBgDark from "../../assets/flex_bg_dark.png";
 import { sendMail } from "../../services/sendMail";
 import AssigneeDisplay from "../Assignee/AssigneeDisplay";
+import { Confirm } from  "../Confirm/ConfirmBox";
+  
 
 export const TodoDetail = () => {
   const [todo, setTodo] = useState({});
@@ -61,6 +62,21 @@ export const TodoDetail = () => {
 
   const handleSendMail = async () => {
     await sendMail({ todo, user, setLoading, toast });
+  };
+
+  /* Confirmation Delete */
+  const handleDelete = () => {
+    Confirm({
+      title: "Deleting 2Door",
+      message: "Do you really want to delete this 2Door?",
+      okText: 'Confirm',
+      confirmColor: 'primary',
+      onOk() {
+        deleteTodo()
+      },
+      onCancel() {
+      },
+    });
   };
 
   const deleteTodo = () => {
@@ -131,13 +147,12 @@ export const TodoDetail = () => {
 
       {/* Create time */}
       <Box display="flex" alignItems="center" gap={1} mt={2}>
-        <Icon as={MdOutlineCreate} boxSize={4} color="grey.200" />
         <Code variant="outline" fontSize="sm" color="grey.200">
           {todo.created_at ? (
             (() => {
               const zone = user.zone || "Europe/Berlin";
               const dt = DateTime.fromISO(todo.created_at, { zone: "utc" }).setZone(zone);
-              return `${dt.toFormat("MMMM dd, yyyy 'at' HH:mm")} (${zone})`;
+              return `${dt.toFormat("MMMM dd, yyyy HH:mm")}`;
             })()
           ) : (
             "Unknown time"
@@ -187,7 +202,7 @@ export const TodoDetail = () => {
             color="red.200"
             width="100%"
             variant="solid"
-            onClick={deleteTodo}
+            onClick={handleDelete}
             borderRadius="md"
           />
         </Box>
